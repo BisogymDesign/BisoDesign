@@ -1,6 +1,7 @@
 import { readContent } from "@/lib/store";
 import ScrollReveal from "@/components/ScrollReveal";
 import ServiceCard from "@/components/ServiceCard";
+import ProcessSteps from "@/components/ProcessSteps";
 import Link from "next/link";
 
 export default async function ServicesPage() {
@@ -29,7 +30,20 @@ export default async function ServicesPage() {
         ))}
       </div>
 
-      <ScrollReveal className="mt-20">
+      <ScrollReveal className="mt-24">
+        <p className="font-label text-sm uppercase tracking-[0.2em] text-flare-orange">
+          How we work
+        </p>
+        <h2 className="mt-2 font-heading text-3xl font-bold md:text-4xl">
+          A simple, four-step process
+        </h2>
+      </ScrollReveal>
+
+      <div className="mt-10">
+        <ProcessSteps steps={content.processSteps} />
+      </div>
+
+      <ScrollReveal className="mt-24">
         <div className="rounded-2xl border border-white/10 bg-flare-radial p-10 text-center">
           <h2 className="font-heading text-2xl font-bold">Not sure what you need yet?</h2>
           <p className="mx-auto mt-3 max-w-md text-muted">

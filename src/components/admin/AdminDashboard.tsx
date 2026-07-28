@@ -4,13 +4,25 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type {
   ContactMessage,
+  FaqItem,
   PortfolioItem,
   PricingPackage,
+  ProcessStep,
   Service,
   SiteContent,
+  Testimonial,
 } from "@/types/content";
 
-const TABS = ["Brand & About", "Services", "Pricing", "Portfolio", "Messages"] as const;
+const TABS = [
+  "Brand & About",
+  "Services",
+  "Pricing",
+  "Portfolio",
+  "Testimonials",
+  "Process",
+  "FAQ",
+  "Messages",
+] as const;
 type Tab = (typeof TABS)[number];
 
 const inputClass =
@@ -142,6 +154,9 @@ export default function AdminDashboard() {
       {tab === "Services" && <ServicesTab content={content} setContent={setContent} />}
       {tab === "Pricing" && <PricingTab content={content} setContent={setContent} />}
       {tab === "Portfolio" && <PortfolioTab content={content} setContent={setContent} />}
+      {tab === "Testimonials" && <TestimonialsTab content={content} setContent={setContent} />}
+      {tab === "Process" && <ProcessTab content={content} setContent={setContent} />}
+      {tab === "FAQ" && <FaqTab content={content} setContent={setContent} />}
       {tab === "Messages" && (
         <MessagesTab messages={messages} onDelete={handleDeleteMessage} />
       )}
@@ -200,6 +215,16 @@ function BrandTab({
           <Field label="Tagline" value={content.tagline} onChange={(v) => setContent({ ...content, tagline: v })} />
           <Field label="Hero title" value={content.heroTitle} onChange={(v) => setContent({ ...content, heroTitle: v })} />
           <Field label="Contact email" value={content.contactEmail} onChange={(v) => setContent({ ...content, contactEmail: v })} />
+          <Field
+            label="WhatsApp number (with country code)"
+            value={content.whatsappNumber}
+            onChange={(v) => setContent({ ...content, whatsappNumber: v })}
+          />
+          <Field
+            label="WhatsApp pre-filled message"
+            value={content.whatsappMessage}
+            onChange={(v) => setContent({ ...content, whatsappMessage: v })}
+          />
         </div>
         <div className="mt-4">
           <Field
@@ -492,6 +517,179 @@ function PortfolioTab({
         className="rounded-full border border-white/15 px-5 py-2 font-label text-sm text-muted hover:text-ink"
       >
         + Add project
+      </button>
+    </div>
+  );
+}
+
+function TestimonialsTab({
+  content,
+  setContent,
+}: {
+  content: SiteContent;
+  setContent: (c: SiteContent) => void;
+}) {
+  function update(i: number, field: keyof Testimonial, value: string) {
+    const next = [...content.testimonials];
+    next[i] = { ...next[i], [field]: value };
+    setContent({ ...content, testimonials: next });
+  }
+
+  return (
+    <div className="space-y-4">
+      {content.testimonials.map((testimonial, i) => (
+        <Card key={testimonial.id}>
+          <Field
+            label="Quote"
+            textarea
+            value={testimonial.quote}
+            onChange={(v) => update(i, "quote", v)}
+          />
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <Field label="Author name" value={testimonial.author} onChange={(v) => update(i, "author", v)} />
+            <Field
+              label="Role / company (optional)"
+              value={testimonial.role ?? ""}
+              onChange={(v) => update(i, "role", v)}
+            />
+          </div>
+          <button
+            onClick={() =>
+              setContent({
+                ...content,
+                testimonials: content.testimonials.filter((_, idx) => idx !== i),
+              })
+            }
+            className="mt-4 font-label text-xs text-flare-orange"
+          >
+            Remove testimonial
+          </button>
+        </Card>
+      ))}
+      <button
+        onClick={() =>
+          setContent({
+            ...content,
+            testimonials: [
+              ...content.testimonials,
+              { id: uid("test"), quote: "", author: "Client Name", role: "" },
+            ],
+          })
+        }
+        className="rounded-full border border-white/15 px-5 py-2 font-label text-sm text-muted hover:text-ink"
+      >
+        + Add testimonial
+      </button>
+    </div>
+  );
+}
+
+function ProcessTab({
+  content,
+  setContent,
+}: {
+  content: SiteContent;
+  setContent: (c: SiteContent) => void;
+}) {
+  function update(i: number, field: keyof ProcessStep, value: string) {
+    const next = [...content.processSteps];
+    next[i] = { ...next[i], [field]: value };
+    setContent({ ...content, processSteps: next });
+  }
+
+  return (
+    <div className="space-y-4">
+      {content.processSteps.map((step, i) => (
+        <Card key={step.id}>
+          <Field label="Step title" value={step.title} onChange={(v) => update(i, "title", v)} />
+          <div className="mt-4">
+            <Field
+              label="Description"
+              textarea
+              value={step.description}
+              onChange={(v) => update(i, "description", v)}
+            />
+          </div>
+          <button
+            onClick={() =>
+              setContent({
+                ...content,
+                processSteps: content.processSteps.filter((_, idx) => idx !== i),
+              })
+            }
+            className="mt-4 font-label text-xs text-flare-orange"
+          >
+            Remove step
+          </button>
+        </Card>
+      ))}
+      <button
+        onClick={() =>
+          setContent({
+            ...content,
+            processSteps: [
+              ...content.processSteps,
+              { id: uid("step"), title: "New step", description: "" },
+            ],
+          })
+        }
+        className="rounded-full border border-white/15 px-5 py-2 font-label text-sm text-muted hover:text-ink"
+      >
+        + Add step
+      </button>
+    </div>
+  );
+}
+
+function FaqTab({
+  content,
+  setContent,
+}: {
+  content: SiteContent;
+  setContent: (c: SiteContent) => void;
+}) {
+  function update(i: number, field: keyof FaqItem, value: string) {
+    const next = [...content.faq];
+    next[i] = { ...next[i], [field]: value };
+    setContent({ ...content, faq: next });
+  }
+
+  return (
+    <div className="space-y-4">
+      {content.faq.map((item, i) => (
+        <Card key={item.id}>
+          <Field label="Question" value={item.question} onChange={(v) => update(i, "question", v)} />
+          <div className="mt-4">
+            <Field
+              label="Answer"
+              textarea
+              value={item.answer}
+              onChange={(v) => update(i, "answer", v)}
+            />
+          </div>
+          <button
+            onClick={() =>
+              setContent({
+                ...content,
+                faq: content.faq.filter((_, idx) => idx !== i),
+              })
+            }
+            className="mt-4 font-label text-xs text-flare-orange"
+          >
+            Remove question
+          </button>
+        </Card>
+      ))}
+      <button
+        onClick={() =>
+          setContent({
+            ...content,
+            faq: [...content.faq, { id: uid("faq"), question: "New question", answer: "" }],
+          })
+        }
+        className="rounded-full border border-white/15 px-5 py-2 font-label text-sm text-muted hover:text-ink"
+      >
+        + Add question
       </button>
     </div>
   );

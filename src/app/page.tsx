@@ -4,6 +4,7 @@ import HeroScene from "@/components/HeroScene";
 import ScrollReveal from "@/components/ScrollReveal";
 import PortfolioCard from "@/components/PortfolioCard";
 import PricingCard from "@/components/PricingCard";
+import TestimonialCard from "@/components/TestimonialCard";
 
 export default async function HomePage() {
   const content = await readContent();
@@ -58,6 +59,25 @@ export default async function HomePage() {
           {content.portfolio.map((item, i) => (
             <ScrollReveal key={item.id} delay={i * 0.1}>
               <PortfolioCard item={item} />
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <ScrollReveal>
+          <p className="font-label text-sm uppercase tracking-[0.2em] text-flare-orange">
+            Client feedback
+          </p>
+          <h2 className="mt-2 font-heading text-3xl font-bold md:text-4xl">
+            What clients say
+          </h2>
+        </ScrollReveal>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {content.testimonials.map((testimonial, i) => (
+            <ScrollReveal key={testimonial.id} delay={i * 0.1}>
+              <TestimonialCard testimonial={testimonial} />
             </ScrollReveal>
           ))}
         </div>

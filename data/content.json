@@ -6,6 +6,8 @@
   "aboutTitle": "About BisoDesign",
   "aboutText": "I'm a web designer focused on building fast, modern, custom websites for small businesses and ambitious brands. Full bio coming soon — for now, reach out and let's talk about your project.",
   "contactEmail": "hello@bisodesign.com",
+  "whatsappNumber": "+447404840646",
+  "whatsappMessage": "Hi! I'd like to talk about a website project.",
   "socialLinks": [
     { "label": "Instagram", "url": "https://instagram.com/" },
     { "label": "LinkedIn", "url": "https://linkedin.com/" }
@@ -110,6 +112,75 @@
       "description": "Placeholder project — replace this from the admin panel with a real case study once it's ready.",
       "url": "",
       "tags": ["E-commerce"]
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "test-1",
+      "quote": "Placeholder testimonial — replace this from the admin panel once you have real client feedback.",
+      "author": "Client Name",
+      "role": "Founder, Company"
+    },
+    {
+      "id": "test-2",
+      "quote": "Placeholder testimonial — replace this from the admin panel once you have real client feedback.",
+      "author": "Client Name",
+      "role": "Founder, Company"
+    },
+    {
+      "id": "test-3",
+      "quote": "Placeholder testimonial — replace this from the admin panel once you have real client feedback.",
+      "author": "Client Name",
+      "role": "Founder, Company"
+    }
+  ],
+  "processSteps": [
+    {
+      "id": "step-1",
+      "title": "Discovery call",
+      "description": "A short, free conversation about your business, your goals, and what the site needs to do — no obligation."
+    },
+    {
+      "id": "step-2",
+      "title": "Proposal & price",
+      "description": "You get a clear scope and a fixed price before any work starts — no surprises later."
+    },
+    {
+      "id": "step-3",
+      "title": "Design & development",
+      "description": "I design and build the site, sharing progress along the way so you can give feedback early."
+    },
+    {
+      "id": "step-4",
+      "title": "Launch & support",
+      "description": "We go live together, and I stay available for fixes, tweaks, and questions afterward."
+    }
+  ],
+  "faq": [
+    {
+      "id": "faq-1",
+      "question": "How long does a typical project take?",
+      "answer": "Anywhere from 2 to 8 weeks depending on the package and scope — Spark projects are usually fastest, Nova projects take longer given the custom work involved."
+    },
+    {
+      "id": "faq-2",
+      "question": "What happens if I need changes after launch?",
+      "answer": "Small fixes and tweaks are covered for a short period after launch. For ongoing changes, I offer a simple maintenance arrangement — ask when we talk."
+    },
+    {
+      "id": "faq-3",
+      "question": "Do you work with clients outside your country?",
+      "answer": "Yes — most of the process happens over calls and messages, so location isn't a barrier."
+    },
+    {
+      "id": "faq-4",
+      "question": "Do I need to have my content and images ready?",
+      "answer": "It helps, but it's not required — I can work with placeholder content and swap it in later, or help you figure out what you need."
+    },
+    {
+      "id": "faq-5",
+      "question": "What if I'm not sure which package fits my project?",
+      "answer": "That's completely normal — get in touch and we'll figure out the right scope together before any commitment."
     }
   ]
 }

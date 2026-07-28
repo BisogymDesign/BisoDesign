@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import PageTransition from "@/components/PageTransition";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -54,6 +55,7 @@ export default async function RootLayout({
           contactEmail={content.contactEmail}
           socialLinks={content.socialLinks}
         />
+        <WhatsAppButton number={content.whatsappNumber} message={content.whatsappMessage} />
       </body>
     </html>
   );

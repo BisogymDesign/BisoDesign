@@ -27,6 +27,25 @@ export type SocialLink = {
   url: string;
 };
 
+export type Testimonial = {
+  id: string;
+  quote: string;
+  author: string;
+  role?: string;
+};
+
+export type ProcessStep = {
+  id: string;
+  title: string;
+  description: string;
+};
+
+export type FaqItem = {
+  id: string;
+  question: string;
+  answer: string;
+};
+
 export type SiteContent = {
   brand: string;
   tagline: string;
@@ -35,10 +54,15 @@ export type SiteContent = {
   aboutTitle: string;
   aboutText: string;
   contactEmail: string;
+  whatsappNumber: string;
+  whatsappMessage: string;
   socialLinks: SocialLink[];
   services: Service[];
   pricing: PricingPackage[];
   portfolio: PortfolioItem[];
+  testimonials: Testimonial[];
+  processSteps: ProcessStep[];
+  faq: FaqItem[];
 };
 
 export type ContactMessage = {

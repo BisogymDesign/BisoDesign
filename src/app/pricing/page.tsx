@@ -1,6 +1,7 @@
 import { readContent } from "@/lib/store";
 import ScrollReveal from "@/components/ScrollReveal";
 import PricingCard from "@/components/PricingCard";
+import FaqAccordion from "@/components/FaqAccordion";
 
 export default async function PricingPage() {
   const content = await readContent();
@@ -32,6 +33,19 @@ export default async function PricingPage() {
         Need ongoing help after launch? Maintenance and small-fix retainers are available too —
         ask about it when we talk.
       </ScrollReveal>
+
+      <ScrollReveal className="mt-24">
+        <p className="font-label text-sm uppercase tracking-[0.2em] text-flare-orange">
+          FAQ
+        </p>
+        <h2 className="mt-2 font-heading text-3xl font-bold md:text-4xl">
+          Common questions
+        </h2>
+      </ScrollReveal>
+
+      <div className="mx-auto mt-10 max-w-3xl">
+        <FaqAccordion items={content.faq} />
+      </div>
     </div>
   );
 }
