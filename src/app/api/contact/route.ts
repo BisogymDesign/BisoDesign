@@ -39,6 +39,14 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  await appendMessage({ name, email, message });
+  // Also keep a local backup copy. On hosts with a read-only production filesystem
+  // (e.g. Vercel's default serverless deploys) this write will fail — that's fine,
+  // it's a bonus backup, not the primary path once Google Sheets is configured above.
+  try {
+    await appendMessage({ name, email, message });
+  } catch (err) {
+    console.error("Failed to save contact message locally:", err);
+  }
+
   return NextResponse.json({ ok: true });
 }
