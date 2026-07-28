@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0d0d0d;
+  color: #fff7ed;
+}
+
+* {
+  scrollbar-color: #8b5cf6 #161213;
+}
+
+/* Custom cursor: hide native cursor on devices that support fine pointers */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a,
+  button,
+  input,
+  textarea {
+    cursor: none;
+  }
+}
+
+.text-gradient {
+  background-image: linear-gradient(90deg, #ff5f1f 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

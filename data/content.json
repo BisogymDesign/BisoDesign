@@ -1,0 +1,115 @@
+{
+  "brand": "BisoDesign",
+  "tagline": "Web design, built for what's next.",
+  "heroTitle": "Websites engineered to move your business forward.",
+  "heroSubtitle": "I design and build fast, modern, custom websites — then keep them running smoothly. Design, development, and bug-fixing, all under one roof.",
+  "aboutTitle": "About BisoDesign",
+  "aboutText": "I'm a web designer focused on building fast, modern, custom websites for small businesses and ambitious brands. Full bio coming soon — for now, reach out and let's talk about your project.",
+  "contactEmail": "hello@bisodesign.com",
+  "socialLinks": [
+    { "label": "Instagram", "url": "https://instagram.com/" },
+    { "label": "LinkedIn", "url": "https://linkedin.com/" }
+  ],
+  "services": [
+    {
+      "id": "svc-1",
+      "title": "Website Design",
+      "description": "Custom, on-brand designs built from scratch — no generic templates. Every layout is designed around your business and your customers."
+    },
+    {
+      "id": "svc-2",
+      "title": "Website Development",
+      "description": "Fast, responsive, production-ready builds using modern tools, from simple presentation sites to fully custom, animated experiences."
+    },
+    {
+      "id": "svc-3",
+      "title": "Redesigns & Refreshes",
+      "description": "Got a site that feels outdated or isn't converting? I'll rebuild it with a modern look, better structure, and improved performance."
+    },
+    {
+      "id": "svc-4",
+      "title": "Bug Fixes & Troubleshooting",
+      "description": "Broken layouts, form issues, slow load times, weird bugs — I dig in, find the root cause, and fix it properly."
+    },
+    {
+      "id": "svc-5",
+      "title": "Ongoing Maintenance",
+      "description": "Updates, small changes, monitoring, and quick turnarounds so your site keeps running smoothly long after launch."
+    },
+    {
+      "id": "svc-6",
+      "title": "Let's figure it out together",
+      "description": "Not sure exactly what you need? If it's design-related, chances are we can work it out together — get in touch and let's talk."
+    }
+  ],
+  "pricing": [
+    {
+      "id": "pkg-spark",
+      "name": "Spark",
+      "price": "€590",
+      "priceNote": "starting at",
+      "tagline": "A clean, professional presentation site to get you online and looking sharp.",
+      "features": [
+        "Up to 5 pages",
+        "Custom responsive design",
+        "Contact form",
+        "Basic on-page SEO setup",
+        "2 weeks delivery"
+      ],
+      "highlighted": false
+    },
+    {
+      "id": "pkg-ignite",
+      "name": "Ignite",
+      "price": "€1,290",
+      "priceNote": "starting at",
+      "tagline": "A fully custom site with motion and content structure built to generate leads.",
+      "features": [
+        "Up to 10 pages",
+        "Custom design + scroll/hover animations",
+        "Blog or resources section",
+        "Advanced on-page SEO",
+        "3–4 weeks delivery"
+      ],
+      "highlighted": true
+    },
+    {
+      "id": "pkg-nova",
+      "name": "Nova",
+      "price": "€2,490",
+      "priceNote": "starting at",
+      "tagline": "A fully custom, high-impact experience — animation, 3D, e-commerce or advanced integrations.",
+      "features": [
+        "Fully custom design + interactive/3D elements",
+        "E-commerce or advanced integrations",
+        "Priority support during build",
+        "Performance & SEO optimization",
+        "5–8 weeks delivery"
+      ],
+      "highlighted": false
+    }
+  ],
+  "portfolio": [
+    {
+      "id": "proj-1",
+      "title": "Project One",
+      "description": "Placeholder project — replace this from the admin panel with a real case study once it's ready.",
+      "url": "",
+      "tags": ["Design", "Development"]
+    },
+    {
+      "id": "proj-2",
+      "title": "Project Two",
+      "description": "Placeholder project — replace this from the admin panel with a real case study once it's ready.",
+      "url": "",
+      "tags": ["Redesign"]
+    },
+    {
+      "id": "proj-3",
+      "title": "Project Three",
+      "description": "Placeholder project — replace this from the admin panel with a real case study once it's ready.",
+      "url": "",
+      "tags": ["E-commerce"]
+    }
+  ]
+}
