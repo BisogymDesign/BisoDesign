@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { isAuthedFromRequestCookie } from "@/lib/auth";
 import { readContent, writeContent } from "@/lib/store";
 import type { SiteContent } from "@/types/content";
@@ -34,5 +35,10 @@ export async function PUT(request: NextRequest) {
   }
 
   await writeContent(body);
+  // The public pages are statically generated for speed and don't re-read
+  // the database on every visit — this tells Next.js to regenerate them
+  // right away so the saved changes show up immediately, not just after
+  // the next deploy.
+  revalidatePath("/", "layout");
   return NextResponse.json({ ok: true });
 }
