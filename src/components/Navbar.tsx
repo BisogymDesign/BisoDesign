@@ -48,7 +48,7 @@ export default function Navbar({ brand }: { brand: string }) {
           <span className="text-gradient">{brand}</span>
         </Link>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {LINKS.map((link) => {
             const active = isActive(pathname, link.href);
             return (
@@ -73,14 +73,14 @@ export default function Navbar({ brand }: { brand: string }) {
           })}
         </ul>
 
-        <Link href="/about#contact" className="btn-primary hidden !px-5 !py-2 md:inline-flex">
+        <Link href="/about#contact" className="btn-primary hidden whitespace-nowrap !px-5 !py-2 lg:inline-flex">
           Free quote
         </Link>
 
         <button
           aria-label="Toggle menu"
           aria-expanded={open}
-          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 rounded-lg border border-white/10 md:hidden"
+          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 rounded-lg border border-white/10 lg:hidden"
           onClick={() => setOpen((v) => !v)}
         >
           <span
@@ -98,7 +98,7 @@ export default function Navbar({ brand }: { brand: string }) {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="glass mx-auto mt-2 max-w-6xl rounded-2xl md:hidden"
+            className="glass mx-auto mt-2 max-w-6xl rounded-2xl lg:hidden"
           >
             <ul className="flex flex-col gap-1 p-3">
               {LINKS.map((link) => (
