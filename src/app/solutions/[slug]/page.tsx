@@ -3,11 +3,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ScrollReveal from "@/components/ScrollReveal";
 import PrintButton from "@/components/PrintButton";
+import AutomationFlow from "@/components/AutomationFlow";
+import PreviewMock from "@/components/PreviewMock";
+import Icon, { type IconName } from "@/components/Icon";
 import { getSolution, solutions } from "@/data/solutions";
 import { readContent } from "@/lib/store";
 import { SITE_URL } from "@/lib/site";
 
 type Params = { params: { slug: string } };
+
+const COMMITMENTS: { icon: IconName; title: string; text: string }[] = [
+  { icon: "user", title: "You talk to me", text: "No account managers, no outsourcing. The person you speak to is the person building it." },
+  { icon: "lock", title: "Fixed price first", text: "You know the full cost before any work starts. No surprises, ever." },
+  { icon: "chat", title: "Plain English", text: "I explain everything clearly and keep you updated — you're never left wondering." },
+  { icon: "shield", title: "Still here after", text: "If something needs adjusting after launch, I'm a message away." },
+];
 
 export function generateStaticParams() {
   return solutions.map((s) => ({ slug: s.slug }));
@@ -116,6 +126,38 @@ export default async function SolutionPage({ params }: Params) {
           <span className="text-flare-cyan">●</span> Ongoing costs: {s.ongoing}
         </p>
       )}
+
+      {/* ── See it in action ── */}
+      <section className="mt-20">
+        <ScrollReveal>
+          <SectionTitle index="00">See it in action</SectionTitle>
+          <p className="mt-3 max-w-2xl text-sm text-muted">
+            This is exactly how it flows — automatically, every time, whether you&apos;re on a job,
+            asleep or on holiday.
+          </p>
+        </ScrollReveal>
+        <ScrollReveal className="mt-8 print-break-avoid">
+          <AutomationFlow nodes={s.flow} />
+        </ScrollReveal>
+        <div className="mt-10 grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
+          <ScrollReveal className="print-break-avoid">
+            <PreviewMock preview={s.preview} />
+          </ScrollReveal>
+          <ScrollReveal delay={0.08}>
+            <p className="hud-label">What it looks like</p>
+            <p className="mt-4 font-heading text-2xl font-bold leading-snug md:text-3xl">
+              {s.previewCaption}
+            </p>
+            <p className="mt-4 text-muted">
+              No jargon, no learning curve. You simply see the result — and your customers feel
+              looked after from the very first second.
+            </p>
+            <Link href={quoteHref} className="btn-primary no-print mt-8">
+              I want this for my business →
+            </Link>
+          </ScrollReveal>
+        </div>
+      </section>
 
       {/* ── Problem / outcomes ── */}
       <section className="mt-20 grid gap-6 lg:grid-cols-5">
@@ -242,6 +284,26 @@ export default async function SolutionPage({ params }: Params) {
           </dl>
         </section>
       )}
+
+      {/* ── Commitment ── */}
+      <section className="mt-20">
+        <ScrollReveal>
+          <SectionTitle index="05">My commitment to you</SectionTitle>
+        </ScrollReveal>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {COMMITMENTS.map((c, i) => (
+            <ScrollReveal key={c.title} delay={i * 0.06} className="h-full">
+              <div className="glass neon print-break-avoid h-full rounded-2xl p-6">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-flare-cyan/40 text-flare-cyan">
+                  <Icon name={c.icon} size={18} />
+                </span>
+                <p className="mt-4 font-heading font-bold">{c.title}</p>
+                <p className="mt-1.5 text-sm text-muted">{c.text}</p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
 
       {/* ── CTA ── */}
       <ScrollReveal className="no-print mt-20">

@@ -7,6 +7,31 @@ import PortfolioCard from "@/components/PortfolioCard";
 import PricingCard from "@/components/PricingCard";
 import ServiceCard from "@/components/ServiceCard";
 import TestimonialCard from "@/components/TestimonialCard";
+import LiveDemo from "@/components/LiveDemo";
+import SavingsCalculator from "@/components/SavingsCalculator";
+import Comparison from "@/components/Comparison";
+import SiteMockup from "@/components/SiteMockup";
+import { templates } from "@/data/templates";
+
+const pains = [
+  {
+    k: "01",
+    title: "Missed calls become lost jobs",
+    text: "You're on a job, the phone rings, you can't answer — and that customer quietly books someone else.",
+  },
+  {
+    k: "02",
+    title: "Your evenings vanish into admin",
+    text: "Quotes, invoices, replies, reminders. The work you love gets squeezed by the work you don't.",
+  },
+  {
+    k: "03",
+    title: "Online, you look like everyone else",
+    text: "You're better than the competition — but your website doesn't show it, so customers can't tell.",
+  },
+];
+
+const featuredTemplateSlugs = ["vehicle-recovery", "beauty-salon", "cleaning-company"];
 
 const highlights = [
   { k: "01", title: "Hand-coded", text: "No page builders or bloated templates — fast sites you fully own." },
@@ -133,6 +158,51 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── Empathy: sound familiar? ── */}
+      <section className="mx-auto max-w-6xl px-6 pt-28">
+        <SectionHeading
+          label="Sound familiar?"
+          title={
+            <>
+              You didn&apos;t start your business <span className="text-gradient">to do admin</span>.
+            </>
+          }
+        />
+        <div className="grid gap-6 md:grid-cols-3">
+          {pains.map((p, i) => (
+            <ScrollReveal key={p.k} delay={i * 0.08} className="h-full">
+              <div className="glass neon h-full rounded-2xl border-t-2 !border-t-flare-orange/70 p-7">
+                <p className="font-label text-[10px] tracking-[0.2em] text-flare-orange">PROBLEM_{p.k}</p>
+                <p className="mt-4 font-heading text-lg font-bold">{p.title}</p>
+                <p className="mt-2 text-sm text-muted">{p.text}</p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+        <ScrollReveal className="mt-10">
+          <p className="mx-auto max-w-3xl text-center font-heading text-xl font-semibold leading-relaxed md:text-2xl">
+            None of this is your fault — there&apos;s only one of you. My job is to build the website
+            and the systems that <span className="text-gradient">work while you work</span>, so no customer
+            is ever left waiting again.
+          </p>
+        </ScrollReveal>
+      </section>
+
+      {/* ── Live demo ── */}
+      <section className="mx-auto max-w-6xl px-6 py-28">
+        <SectionHeading
+          label="Try it yourself"
+          title={
+            <>
+              Watch an automation <span className="text-gradient">work in real time</span>
+            </>
+          }
+        />
+        <ScrollReveal>
+          <LiveDemo />
+        </ScrollReveal>
+      </section>
+
       {/* ── Services ── */}
       <section className="mx-auto max-w-6xl px-6 py-24">
         <SectionHeading
@@ -186,6 +256,63 @@ export default async function HomePage() {
             </ScrollReveal>
           ))}
         </div>
+      </section>
+
+      {/* ── Time-back calculator ── */}
+      <section className="mx-auto max-w-6xl px-6 py-12">
+        <ScrollReveal>
+          <SavingsCalculator />
+        </ScrollReveal>
+      </section>
+
+      {/* ── Templates teaser ── */}
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <SectionHeading
+          label="Website templates"
+          title={
+            <>
+              See your future website <span className="text-gradient">today</span>
+            </>
+          }
+          link={{ href: "/templates", text: `All ${templates.length} templates →` }}
+        />
+        <div className="grid gap-6 md:grid-cols-3">
+          {featuredTemplateSlugs
+            .map((slug) => templates.find((t) => t.slug === slug))
+            .filter((t): t is (typeof templates)[number] => Boolean(t))
+            .map((t, i) => (
+              <ScrollReveal key={t.slug} delay={i * 0.08} className="h-full">
+                <Link
+                  href={`/templates/${t.slug}`}
+                  className="glass neon group flex h-full flex-col rounded-2xl p-4 transition-transform hover:-translate-y-1.5"
+                >
+                  <SiteMockup template={t} />
+                  <p className="mt-4 font-label text-[10px] uppercase tracking-[0.2em] text-flare-cyan/80">
+                    {t.industry}
+                  </p>
+                  <p className="mt-1 font-heading font-bold">{t.name}</p>
+                  <span className="mt-3 font-label text-xs uppercase tracking-[0.16em] text-flare-cyan transition-transform group-hover:translate-x-1">
+                    See why it works →
+                  </span>
+                </Link>
+              </ScrollReveal>
+            ))}
+        </div>
+      </section>
+
+      {/* ── Comparison ── */}
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <SectionHeading
+          label="Your options, honestly"
+          title={
+            <>
+              Why business owners <span className="text-gradient">choose BisoDesign</span>
+            </>
+          }
+        />
+        <ScrollReveal>
+          <Comparison />
+        </ScrollReveal>
       </section>
 
       {/* ── Portfolio ── */}

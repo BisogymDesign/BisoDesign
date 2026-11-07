@@ -339,12 +339,134 @@ body {
   }
 }
 
+/* ---------- Automation flow diagram ---------- */
+
+.flow-link {
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.5), rgba(139, 92, 246, 0.5));
+}
+@media (min-width: 1024px) {
+  .flow-link {
+    background: linear-gradient(90deg, rgba(34, 211, 238, 0.5), rgba(139, 92, 246, 0.5));
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+  }
+}
+.flow-packet {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow:
+    0 0 10px #22d3ee,
+    0 0 20px #22d3ee;
+  left: -3.5px;
+  top: 0;
+  animation: packet-y 2.8s ease-in-out infinite;
+}
+@media (min-width: 1024px) {
+  .flow-packet {
+    top: -3.5px;
+    left: 0;
+    animation-name: packet-x;
+  }
+}
+@keyframes packet-y {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 1; }
+  45% { top: calc(100% - 8px); opacity: 1; }
+  55%, 100% { top: calc(100% - 8px); opacity: 0; }
+}
+@keyframes packet-x {
+  0% { left: 0; opacity: 0; }
+  10% { opacity: 1; }
+  45% { left: calc(100% - 8px); opacity: 1; }
+  55%, 100% { left: calc(100% - 8px); opacity: 0; }
+}
+.flow-ring {
+  opacity: 0;
+  animation: ring 2.8s ease-out infinite;
+}
+@keyframes ring {
+  0% { transform: scale(1); opacity: 0.7; }
+  60%, 100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* Typing dots used in chat previews */
+.typing span {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin: 0 1.5px;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: typing 1.2s infinite ease-in-out;
+}
+.typing span:nth-child(2) { animation-delay: 0.15s; }
+.typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes typing {
+  0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-3px); }
+}
+
+/* Slide-in used by the live demo */
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-slide-in {
+  animation: slide-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Neon range slider */
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #ff5f1f, #c04cfd, #22d3ee) 0 0 / var(--pct, 50%) 100% no-repeat,
+    rgba(255, 255, 255, 0.08);
+  outline: none;
+  cursor: pointer;
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: #fff;
+  border: 3px solid #22d3ee;
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.9);
+}
+.range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: #fff;
+  border: 3px solid #22d3ee;
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.9);
+}
+.range:focus-visible {
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.35);
+}
+
+/* Site mockups scale with their container */
+.mock {
+  container-type: inline-size;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .aurora,
   .scanline,
   .hero-floor,
-  .hud-label::before {
+  .hud-label::before,
+  .flow-packet,
+  .flow-ring,
+  .typing span {
     animation: none !important;
+  }
+  .flow-packet {
+    display: none;
   }
 }
 

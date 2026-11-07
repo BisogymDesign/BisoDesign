@@ -2,9 +2,9 @@
   "brand": "BisoDesign",
   "tagline": "Websites & automations for UK small businesses",
   "heroTitle": "Websites that win you customers. Automations that save you hours.",
-  "heroSubtitle": "I hand-code fast, custom websites (no page builders, no bloated templates) and set up simple automations — enquiries straight to your WhatsApp, online bookings, review requests — so your business runs smoother while you get on with the work.",
-  "aboutTitle": "About BisoDesign",
-  "aboutText": "BisoDesign is a one-person web studio. I build websites in pure code — HTML, CSS, JavaScript and Next.js — instead of drag-and-drop builders, which means they load fast, rank better on Google and don't come with a monthly platform fee.\n\nMost of my clients are small UK businesses — trades, recovery and transport companies, salons and local shops — who need a site that brings in calls and enquiries, not just one that looks nice. On top of the website, I set up the automations that save time every day: enquiries sent straight to your phone, online bookings, automatic follow-ups and review requests.\n\nYou deal with me directly, from the first call to launch and beyond — no account managers, no outsourcing. You get a fixed price before any work starts, and I stay available for fixes and changes after your site goes live.",
+  "heroSubtitle": "You're brilliant at what you do — your website and admin should be too. I hand-code fast, custom websites and set up the automations that answer enquiries, take bookings and collect reviews for you, so no customer is ever left waiting and you get your evenings back.",
+  "aboutTitle": "Hi, I'm the person behind BisoDesign.",
+  "aboutText": "I started BisoDesign because I kept seeing the same thing: brilliant local businesses losing customers to competitors who simply had a better website and answered faster. Not better work — just better systems.\n\nSo that's what I build. Websites written in pure code — no drag-and-drop builders — that load fast, rank well and make it effortless for customers to call you. And the automations behind them that reply, book, remind and follow up for you, even when you're on a job or asleep.\n\nWhen you work with me, you work with me. No account managers, no outsourcing, no jargon. You get a fixed price before anything starts, honest advice about what you actually need (and what you don't), and someone who still answers your message after launch. Your business matters to you — so it matters to me.",
   "contactEmail": "info.bisodesign.co.uk@gmail.com",
   "whatsappNumber": "+447404840646",
   "whatsappMessage": "Hi! I'd like to talk about a website project.",
@@ -15,32 +15,32 @@
     {
       "id": "svc-1",
       "title": "Custom Websites",
-      "description": "Hand-coded, mobile-first websites designed around your business and your customers — fast to load, easy to find on Google, and built to turn visitors into calls and enquiries."
+      "description": "A website that finally shows how good you really are. Hand-coded, mobile-first and built around your customers — so the right people understand you in seconds and pick up the phone."
     },
     {
       "id": "svc-automation",
       "title": "Business Automations",
-      "description": "Stop doing the same admin by hand. Contact forms that land on your WhatsApp or in a Google Sheet, online booking, automatic email replies and follow-ups, review requests after every job, simple quote and invoice flows."
+      "description": "Give yourself back the hours you lose to admin. Enquiries straight to your phone, online booking, instant replies, review requests and invoices that send themselves — working for you 24/7."
     },
     {
       "id": "svc-leads",
       "title": "Lead-Generating Features",
-      "description": "Click-to-call and WhatsApp buttons, GPS location sharing for call-outs, quote request forms, customer review systems — the features that actually make your phone ring."
+      "description": "The small details that make phones ring: click-to-call, WhatsApp, GPS location sharing, quote calculators and review systems — designed so saying yes to you is effortless."
     },
     {
       "id": "svc-3",
       "title": "Redesigns & Refreshes",
-      "description": "Got a site that feels outdated, loads slowly or isn't bringing in work? I'll rebuild it with a modern look, a clearer structure and much better performance."
+      "description": "Proud of your work but not your website? I'll rebuild it with a modern look, a clear structure and real speed — and protect the Google rankings you've already earned."
     },
     {
       "id": "svc-seo",
       "title": "Local SEO & Google Presence",
-      "description": "On-page SEO, schema markup, sitemap, Google Business Profile setup and speed optimisation — so local customers searching for what you do can actually find you."
+      "description": "Be the name people see when someone nearby searches for what you do. Google Business Profile, local pages, schema and speed — done properly, measured honestly."
     },
     {
       "id": "svc-5",
       "title": "Maintenance & Bug Fixes",
-      "description": "Broken layouts, forms that stopped working, slow pages, updates and small changes — I find the root cause, fix it properly and keep your site running smoothly after launch."
+      "description": "One less thing to worry about. Changes, fixes and checks handled quickly, so your forms keep working and your leads keep flowing long after launch."
     }
   ],
   "pricing": [
@@ -49,7 +49,7 @@
       "name": "Spark",
       "price": "£495",
       "priceNote": "starting at",
-      "tagline": "A clean, professional site that gets you online and gets you found.",
+      "tagline": "For getting online properly — a professional site that makes a great first impression and gets you found.",
       "features": [
         "Up to 5 pages",
         "Custom, mobile-first design",
@@ -64,7 +64,7 @@
       "name": "Ignite",
       "price": "£1,095",
       "priceNote": "starting at",
-      "tagline": "A fully custom site with the automations to turn visitors into booked jobs.",
+      "tagline": "For businesses ready to grow — a site plus the automations that turn visitors into booked jobs while you work.",
       "features": [
         "Up to 10 pages",
         "Custom design + scroll/hover animations",
@@ -81,7 +81,7 @@
       "name": "Nova",
       "price": "£2,095",
       "priceNote": "starting at",
-      "tagline": "A high-impact site with e-commerce, custom tools or advanced automations.",
+      "tagline": "For ambitious brands — e-commerce, custom tools or advanced automations that run whole parts of your business.",
       "features": [
         "Fully custom design + interactive/3D elements",
         "E-commerce, payments or a custom admin panel",
@@ -120,45 +120,50 @@
   "processSteps": [
     {
       "id": "step-1",
-      "title": "Discovery call",
-      "description": "A short, free conversation about your business, your goals, and what the site needs to do — no obligation."
+      "title": "A relaxed, free chat",
+      "description": "We talk about your business, your customers and what's getting in your way. No sales pitch, no obligation — just honest advice."
     },
     {
       "id": "step-2",
-      "title": "Proposal & price",
-      "description": "You get a clear scope and a fixed price before any work starts — no surprises later."
+      "title": "A clear plan & fixed price",
+      "description": "You get exactly what's included and exactly what it costs, in writing, before any work starts. No surprises — ever."
     },
     {
       "id": "step-3",
-      "title": "Design & development",
-      "description": "I design and build the site, sharing progress along the way so you can give feedback early."
+      "title": "Built with you, not for you",
+      "description": "I design and build while sharing progress along the way, so your feedback shapes it and you always know where things stand."
     },
     {
       "id": "step-4",
-      "title": "Launch & support",
-      "description": "We go live together, and I stay available for fixes, tweaks, and questions afterward."
+      "title": "Launch — and I'm still here",
+      "description": "We go live together. After launch, I'm one message away for tweaks, questions and whatever your business needs next."
     }
   ],
   "faq": [
     {
       "id": "faq-1",
       "question": "How long does a typical project take?",
-      "answer": "Anywhere from 2 to 8 weeks depending on the package and scope — Spark projects are usually fastest, Nova projects take longer given the custom work involved."
+      "answer": "Anywhere from 2 to 8 weeks depending on the package and scope. Automations on their own often take just a few days. You'll know the timeline before we start."
     },
     {
       "id": "faq-automation",
       "question": "What kind of automations can you set up?",
-      "answer": "Anything that saves you repetitive admin: enquiries sent straight to your WhatsApp, email or a Google Sheet, online bookings with confirmations, automatic replies and follow-ups, review requests after a job, and simple quote or invoice flows. Tell me what you do by hand every week and I'll tell you what can be automated."
+      "answer": "Anything that saves you repetitive admin: enquiries sent straight to your phone, online bookings with reminders, instant replies and follow-ups, review requests after a job, payment links and invoices. Tell me what you do by hand every week and I'll tell you honestly what can be automated."
     },
     {
       "id": "faq-builders",
       "question": "Why hand-coded instead of Wix, Squarespace or WordPress?",
-      "answer": "Hand-coded sites load faster, rank better on Google, have no plugins to break or get hacked, and don't lock you into a monthly platform subscription. You own the code."
+      "answer": "Hand-coded sites load faster, rank better on Google, have no plugins to break or get hacked, and don't lock you into a monthly platform subscription. You own the code — it's yours for good."
+    },
+    {
+      "id": "faq-small",
+      "question": "I'm a small business — is this really for me?",
+      "answer": "Especially for you. Small businesses feel every missed call and every lost evening. Everything I build is sized to your budget, and we can start with one small automation and grow from there."
     },
     {
       "id": "faq-2",
       "question": "What happens if I need changes after launch?",
-      "answer": "Small fixes and tweaks are covered for a short period after launch. For ongoing changes, updates and hosting help, I offer a simple monthly maintenance plan — ask when we talk."
+      "answer": "Small fixes and tweaks are covered for a short period after launch. After that, a simple monthly care plan or one-off changes — whatever suits you."
     },
     {
       "id": "faq-3",
@@ -167,13 +172,13 @@
     },
     {
       "id": "faq-4",
-      "question": "Do I need to have my content and images ready?",
-      "answer": "It helps, but it's not required — I can help you write the text, find suitable images, and swap in your own photos later."
+      "question": "I don't have content or photos ready. Is that a problem?",
+      "answer": "Not at all — most clients start exactly there. I'll help you write the text, use quality images for now, and swap in your own photos whenever you're ready."
     },
     {
       "id": "faq-5",
-      "question": "What if I'm not sure which package fits my project?",
-      "answer": "That's completely normal — get in touch and we'll figure out the right scope together before any commitment."
+      "question": "What if I'm not sure what I need?",
+      "answer": "That's completely normal. Tell me what's frustrating you and I'll recommend the simplest thing that solves it — even if that means you need less than you thought."
     }
   ]
 }

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { solutions } from "@/data/solutions";
+import { templates } from "@/data/templates";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -11,12 +12,19 @@ export default function ContactForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  // Pre-fill the message when arriving from a solution guide (/about?topic=<slug>#contact)
+  // Pre-fill the message when arriving from a solution guide (?topic=<slug>)
+  // or a website template (?template=<slug>).
   useEffect(() => {
-    const topic = new URLSearchParams(window.location.search).get("topic");
-    const match = solutions.find((s) => s.slug === topic);
-    if (match && messageRef.current && !messageRef.current.value) {
-      messageRef.current.value = `Hi! I'm interested in "${match.title}".\n\nMy business: \nWhat I'd like to achieve: `;
+    const params = new URLSearchParams(window.location.search);
+    const solution = solutions.find((s) => s.slug === params.get("topic"));
+    const template = templates.find((t) => t.slug === params.get("template"));
+    const interest = solution
+      ? `"${solution.title}"`
+      : template
+        ? `a website like the "${template.name}" template (${template.industry})`
+        : null;
+    if (interest && messageRef.current && !messageRef.current.value) {
+      messageRef.current.value = `Hi! I'm interested in ${interest}.\n\nMy business: \nWhat I'd like to achieve: `;
     }
   }, []);
 
