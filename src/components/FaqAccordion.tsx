@@ -14,7 +14,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
         return (
           <div
             key={item.id}
-            className="overflow-hidden rounded-2xl border border-white/10 bg-surface"
+            className={`glass neon overflow-hidden rounded-2xl ${isOpen ? "neon-on" : ""}`}
           >
             <button
               onClick={() => setOpenId(isOpen ? null : item.id)}
@@ -25,7 +25,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
               <motion.span
                 animate={{ rotate: isOpen ? 45 : 0 }}
                 transition={{ duration: 0.2 }}
-                className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-white/20 text-lg text-flare-orange"
+                className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-flare-cyan/40 text-lg text-flare-cyan"
               >
                 +
               </motion.span>

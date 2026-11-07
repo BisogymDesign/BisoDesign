@@ -1,13 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { solutions } from "@/data/solutions";
 
 type Status = "idle" | "loading" | "success" | "error";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const messageRef = useRef<HTMLTextAreaElement>(null);
+
+  // Pre-fill the message when arriving from a solution guide (/about?topic=<slug>#contact)
+  useEffect(() => {
+    const topic = new URLSearchParams(window.location.search).get("topic");
+    const match = solutions.find((s) => s.slug === topic);
+    if (match && messageRef.current && !messageRef.current.value) {
+      messageRef.current.value = `Hi! I'm interested in "${match.title}".\n\nMy business: \nWhat I'd like to achieve: `;
+    }
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -44,11 +55,12 @@ export default function ContactForm() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="rounded-2xl border border-flare-orange/40 bg-surface p-8 text-center"
+        className="glass neon neon-on rounded-2xl p-8 text-center"
       >
-        <h3 className="font-heading text-xl font-bold">Message sent.</h3>
+        <p className="hud-label justify-center">Transmission received</p>
+        <h3 className="mt-3 font-heading text-xl font-bold">Message sent.</h3>
         <p className="mt-2 text-sm text-muted">
-          Thanks for reaching out — I'll get back to you soon.
+          Thanks for reaching out — I&apos;ll get back to you soon.
         </p>
       </motion.div>
     );
@@ -57,53 +69,40 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <label className="font-label text-xs uppercase tracking-wide text-muted" htmlFor="name">
+        <label className="font-label text-xs uppercase tracking-[0.16em] text-muted" htmlFor="name">
           Name
         </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          required
-          className="mt-2 w-full rounded-xl border border-white/10 bg-surface px-4 py-3 text-sm outline-none focus:border-flare-orange"
-        />
+        <input id="name" name="name" type="text" required className="field mt-2" />
       </div>
       <div>
-        <label className="font-label text-xs uppercase tracking-wide text-muted" htmlFor="email">
+        <label className="font-label text-xs uppercase tracking-[0.16em] text-muted" htmlFor="email">
           Email
         </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          className="mt-2 w-full rounded-xl border border-white/10 bg-surface px-4 py-3 text-sm outline-none focus:border-flare-orange"
-        />
+        <input id="email" name="email" type="email" required className="field mt-2" />
       </div>
       <div>
         <label
-          className="font-label text-xs uppercase tracking-wide text-muted"
+          className="font-label text-xs uppercase tracking-[0.16em] text-muted"
           htmlFor="message"
         >
           Tell me about your project
         </label>
         <textarea
+          ref={messageRef}
           id="message"
           name="message"
-          rows={5}
+          rows={6}
           required
-          className="mt-2 w-full rounded-xl border border-white/10 bg-surface px-4 py-3 text-sm outline-none focus:border-flare-orange"
+          className="field mt-2"
         />
       </div>
 
-      {status === "error" && (
-        <p className="text-sm text-flare-orange">{errorMessage}</p>
-      )}
+      {status === "error" && <p className="text-sm text-flare-orange">{errorMessage}</p>}
 
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full rounded-full bg-flare-gradient px-6 py-3 font-label text-sm font-semibold text-night shadow-glow transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+        className="btn-primary w-full disabled:opacity-60"
       >
         {status === "loading" ? "Sending…" : "Send message"}
       </button>

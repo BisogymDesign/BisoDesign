@@ -1,6 +1,14 @@
 import { readContent } from "@/lib/store";
 import ScrollReveal from "@/components/ScrollReveal";
 import ContactForm from "@/components/ContactForm";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About & Contact — Get a Free Website Quote",
+  description:
+    "Hand-coded websites and automations for UK small businesses. Get in touch by form, email or WhatsApp for a free, fixed-price quote.",
+  alternates: { canonical: "/about" },
+};
 
 export default async function AboutPage() {
   const content = await readContent();
@@ -9,13 +17,18 @@ export default async function AboutPage() {
     <div className="mx-auto max-w-6xl px-6 py-24">
       <div className="grid gap-16 md:grid-cols-2">
         <ScrollReveal>
-          <p className="font-label text-sm uppercase tracking-[0.2em] text-flare-orange">
-            About
-          </p>
-          <h1 className="mt-2 font-heading text-4xl font-extrabold leading-tight md:text-5xl">
+          <p className="hud-label">About</p>
+          <h1 className="mt-4 font-heading text-4xl font-extrabold leading-tight md:text-5xl">
             {content.aboutTitle}
           </h1>
-          <p className="mt-6 text-muted">{content.aboutText}</p>
+          <div className="mt-6 space-y-4 text-muted">
+            {content.aboutText
+              .split(/\n\s*\n/)
+              .filter((p) => p.trim())
+              .map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
+              ))}
+          </div>
 
           <div className="mt-10 space-y-2">
             <a
@@ -49,12 +62,13 @@ export default async function AboutPage() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.1}>
-          <div className="rounded-2xl border border-white/10 bg-surface p-8">
-            <h2 className="font-heading text-xl font-bold">Start a project</h2>
+          <div id="contact" className="glass neon neon-on hud scroll-mt-28 rounded-2xl p-8">
+            <p className="hud-label">Open channel</p>
+            <h2 className="mt-3 font-heading text-2xl font-bold">Get a free quote</h2>
             <p className="mt-2 text-sm text-muted">
-              Tell me a bit about what you need — I'll reply with next steps and, if it's a fit,
-              a more specific quote. Prefer WhatsApp? Use the button in the corner, or the link
-              on the left.
+              Tell me a bit about your business and what you need — I'll reply with ideas, next
+              steps and a fixed-price quote. Prefer WhatsApp? Use the button in the corner, or the
+              link on the left.
             </p>
             <div className="mt-6">
               <ContactForm />

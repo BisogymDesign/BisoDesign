@@ -55,8 +55,8 @@ function Rig({ scrollRef }: { scrollRef: React.MutableRefObject<number> }) {
         <mesh position={[0.2, -1.3, -0.5]}>
           <octahedronGeometry args={[0.55, 0]} />
           <MeshDistortMaterial
-            color="#fdba74"
-            emissive="#fdba74"
+            color="#22d3ee"
+            emissive="#22d3ee"
             emissiveIntensity={0.25}
             roughness={0.25}
             metalness={0.4}
@@ -66,8 +66,17 @@ function Rig({ scrollRef }: { scrollRef: React.MutableRefObject<number> }) {
         </mesh>
       </Float>
 
+      {/* Wireframe shell for a holographic feel */}
+      <Float speed={0.8} rotationIntensity={1.2} floatIntensity={0.6}>
+        <mesh position={[1.6, 0.4, 0]}>
+          <icosahedronGeometry args={[1.75, 1]} />
+          <meshBasicMaterial color="#22d3ee" wireframe transparent opacity={0.12} />
+        </mesh>
+      </Float>
+
       <Sparkles count={80} scale={7} size={2.5} speed={0.3} color="#ff8a4c" />
       <Sparkles count={60} scale={9} size={1.8} speed={0.2} color="#a78bfa" />
+      <Sparkles count={50} scale={10} size={1.6} speed={0.25} color="#67e8f9" />
     </group>
   );
 }
@@ -89,7 +98,16 @@ export default function HeroScene() {
 
   if (reduceMotion) {
     return (
-      <div className="absolute inset-0 bg-flare-radial" aria-hidden />
+      <div className="absolute inset-0" aria-hidden>
+        {/* Static holographic orb for visitors who prefer reduced motion */}
+        <div className="absolute right-[6%] top-1/2 hidden h-[420px] w-[420px] -translate-y-1/2 opacity-90 xl:block">
+          <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_200deg,#ff5f1f,#c04cfd,#22d3ee,#ff5f1f)] opacity-80 [mask:radial-gradient(farthest-side,transparent_calc(100%-2px),#000_calc(100%-1px))]" />
+          <div className="absolute inset-10 rounded-full border border-flare-cyan/20" />
+          <div className="absolute inset-20 rounded-full border border-dashed border-flare-violet/30" />
+          <div className="absolute inset-[30%] rounded-full bg-[radial-gradient(circle,rgba(192,76,253,0.55),rgba(255,95,31,0.25)_45%,transparent_70%)] blur-2xl" />
+          <div className="absolute inset-[38%] rounded-full bg-[radial-gradient(circle_at_35%_30%,#fff7ed,#c04cfd_35%,#3b0764_75%)] shadow-[0_0_80px_rgba(192,76,253,0.6)]" />
+        </div>
+      </div>
     );
   }
 
@@ -103,6 +121,7 @@ export default function HeroScene() {
         <ambientLight intensity={0.5} />
         <pointLight position={[5, 5, 5]} intensity={1.2} color="#ff5f1f" />
         <pointLight position={[-5, -3, -5]} intensity={1} color="#8b5cf6" />
+        <pointLight position={[0, -4, 3]} intensity={0.8} color="#22d3ee" />
         <Rig scrollRef={scrollRef} />
       </Canvas>
     </div>

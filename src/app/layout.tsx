@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Sora, Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { readContent } from "@/lib/store";
+import { SITE_URL } from "@/lib/site";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
+import AmbientBackground from "@/components/AmbientBackground";
 import PageTransition from "@/components/PageTransition";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
@@ -26,10 +27,30 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["500", "600", "700"],
 });
 
+const DEFAULT_DESCRIPTION =
+  "Hand-coded, fast websites and business automations for UK small businesses — WhatsApp enquiries, online booking, review requests and local SEO. Fixed prices from £495.";
+
 export const metadata: Metadata = {
-  title: "BisoDesign — Web design, built for what's next.",
-  description:
-    "BisoDesign designs and builds fast, modern, custom websites — design, development, and ongoing support under one roof.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "BisoDesign — Websites & Automations for UK Small Businesses",
+    template: "%s | BisoDesign",
+  },
+  description: DEFAULT_DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    url: SITE_URL,
+    siteName: "BisoDesign",
+    title: "BisoDesign — Websites & Automations for UK Small Businesses",
+    description: DEFAULT_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BisoDesign — Websites & Automations for UK Small Businesses",
+    description: DEFAULT_DESCRIPTION,
+  },
 };
 
 export default async function RootLayout({
@@ -39,12 +60,41 @@ export default async function RootLayout({
 }) {
   const content = await readContent();
 
+  const prices = content.pricing
+    .map((p) => p.price)
+    .filter(Boolean);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: content.brand,
+    url: SITE_URL,
+    image: `${SITE_URL}/opengraph-image`,
+    description: DEFAULT_DESCRIPTION,
+    email: content.contactEmail,
+    telephone: content.whatsappNumber,
+    areaServed: { "@type": "Country", name: "United Kingdom" },
+    ...(prices.length > 1 ? { priceRange: `${prices[0]}–${prices[prices.length - 1]}+` } : {}),
+    sameAs: content.socialLinks.map((l) => l.url).filter((u) => /^https?:\/\/[^/]+\/.+/.test(u)),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Web design & automation services",
+      itemListElement: content.services.map((s) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: s.title, description: s.description },
+      })),
+    },
+  };
+
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <body
         className={`${sora.variable} ${inter.variable} ${spaceGrotesk.variable} bg-night font-body text-ink antialiased`}
       >
-        <CustomCursor />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+        />
+        <AmbientBackground />
         <Navbar brand={content.brand} />
         <main className="pt-20">
           <PageTransition>{children}</PageTransition>

@@ -22,6 +22,7 @@ export default function WhatsAppButton({
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"
+      data-whatsapp
       initial={{ opacity: 0, y: 20, scale: 0.8 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ delay: 0.6, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}

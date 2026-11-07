@@ -1,6 +1,13 @@
 import Link from "next/link";
 import type { SocialLink } from "@/types/content";
 
+const NAV = [
+  { href: "/services", label: "Services" },
+  { href: "/solutions", label: "Solutions" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/about", label: "About & Contact" },
+];
+
 export default function Footer({
   brand,
   tagline,
@@ -13,35 +20,55 @@ export default function Footer({
   socialLinks: SocialLink[];
 }) {
   return (
-    <footer className="border-t border-white/5 bg-night px-6 py-12">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
+    <footer className="relative border-t border-white/5 px-6 pb-10 pt-16">
+      <div
+        aria-hidden
+        className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-flare-cyan/60 to-transparent"
+      />
+      <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-3">
         <div>
-          <p className="font-label text-lg font-bold text-gradient">{brand}</p>
-          <p className="mt-1 max-w-sm text-sm text-muted">{tagline}</p>
+          <p className="flex items-center gap-2 font-label text-lg font-bold">
+            <span aria-hidden className="h-5 w-5 rounded-md bg-flare-gradient" />
+            <span className="text-gradient">{brand}</span>
+          </p>
+          <p className="mt-3 max-w-xs text-sm text-muted">{tagline}</p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-6 text-sm text-muted">
-          <a href={`mailto:${contactEmail}`} className="hover:text-ink">
-            {contactEmail}
-          </a>
-          {socialLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.url}
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-ink"
-            >
-              {link.label}
+        <nav aria-label="Footer">
+          <p className="font-label text-[10px] uppercase tracking-[0.2em] text-flare-cyan/80">Navigate</p>
+          <ul className="mt-4 space-y-2 text-sm text-muted">
+            {NAV.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="hover:text-ink">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div>
+          <p className="font-label text-[10px] uppercase tracking-[0.2em] text-flare-cyan/80">Contact</p>
+          <div className="mt-4 flex flex-col gap-2 text-sm text-muted">
+            <a href={`mailto:${contactEmail}`} className="break-all hover:text-ink">
+              {contactEmail}
             </a>
-          ))}
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-ink"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
-      <p className="mx-auto mt-8 max-w-6xl text-xs text-muted/70">
-        © {new Date().getFullYear()} {brand}. All rights reserved.{" "}
-        <Link href="/admin" className="hover:text-ink">
-          Admin
-        </Link>
+      <p className="mx-auto mt-12 max-w-6xl font-label text-xs tracking-wide text-muted/70">
+        © {new Date().getFullYear()} {brand}. All rights reserved.
       </p>
     </footer>
   );
