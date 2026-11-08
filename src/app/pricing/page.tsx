@@ -15,8 +15,23 @@ export const metadata: Metadata = {
 export default async function PricingPage() {
   const content = await readContent();
 
+  // FAQ rich results in Google search
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: content.faq.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-6 py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
+      />
       <ScrollReveal>
         <p className="hud-label">Pricing</p>
         <h1 className="mt-4 max-w-3xl font-heading text-4xl font-extrabold leading-tight md:text-6xl">

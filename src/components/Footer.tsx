@@ -68,9 +68,14 @@ export default function Footer({
           </div>
         </div>
       </div>
-      <p className="mx-auto mt-12 max-w-6xl font-label text-xs tracking-wide text-muted/70">
-        © {new Date().getFullYear()} {brand}. All rights reserved.
-      </p>
+      <div className="mx-auto mt-12 flex max-w-6xl flex-wrap items-center justify-between gap-3 font-label text-xs tracking-wide text-muted/70">
+        <p>
+          © {new Date().getFullYear()} {brand}. All rights reserved.
+        </p>
+        <Link href="/privacy" className="hover:text-ink">
+          Privacy Policy
+        </Link>
+      </div>
     </footer>
   );
 }

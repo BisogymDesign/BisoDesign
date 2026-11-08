@@ -114,6 +114,13 @@ export default function ContactForm() {
       >
         {status === "loading" ? "Sending…" : "Send message"}
       </button>
+      <p className="text-center text-[11px] leading-snug text-muted">
+        I&apos;ll only use your details to reply to your enquiry. See the{" "}
+        <a href="/privacy" className="underline hover:text-ink">
+          Privacy Policy
+        </a>
+        .
+      </p>
     </form>
   );
 }

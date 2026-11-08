@@ -19,6 +19,8 @@ export type PortfolioItem = {
   title: string;
   description: string;
   url?: string;
+  /** Internal case-study page, e.g. "/work/sayah-recovery" — the card links there when set. */
+  caseStudy?: string;
   tags: string[];
 };
 
@@ -47,6 +49,8 @@ export type FaqItem = {
 };
 
 export type SiteContent = {
+  /** Bumped when data/content.json should replace older content stored in the database. */
+  contentVersion?: number;
   brand: string;
   tagline: string;
   heroTitle: string;

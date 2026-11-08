@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { readContent } from "@/lib/store";
 import { solutions } from "@/data/solutions";
-import HeroScene from "@/components/HeroScene";
+import HeroScene from "@/components/HeroSceneLazy";
 import ScrollReveal from "@/components/ScrollReveal";
 import PortfolioCard from "@/components/PortfolioCard";
 import PricingCard from "@/components/PricingCard";
@@ -316,7 +316,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Portfolio ── */}
-      <section className="mx-auto max-w-6xl px-6 py-24">
+      <section id="portfolio" className="scroll-mt-28 mx-auto max-w-6xl px-6 py-24">
         <SectionHeading
           label="Selected work"
           title="Portfolio"

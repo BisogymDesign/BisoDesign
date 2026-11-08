@@ -6,6 +6,7 @@ import { SITE_URL } from "@/lib/site";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AmbientBackground from "@/components/AmbientBackground";
+import { Analytics } from "@vercel/analytics/react";
 import PageTransition from "@/components/PageTransition";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
@@ -106,6 +107,8 @@ export default async function RootLayout({
           socialLinks={content.socialLinks}
         />
         <WhatsAppButton number={content.whatsappNumber} message={content.whatsappMessage} />
+        {/* Cookieless visitor statistics — enable "Analytics" in the Vercel project to see the data */}
+        <Analytics />
       </body>
     </html>
   );

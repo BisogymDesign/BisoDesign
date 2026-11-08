@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import type { PortfolioItem } from "@/types/content";
 
 export default function PortfolioCard({ item }: { item: PortfolioItem }) {
-  const Wrapper = item.url ? "a" : "div";
-  const wrapperProps = item.url
-    ? { href: item.url, target: "_blank", rel: "noreferrer" }
-    : {};
+  const Wrapper = item.caseStudy || item.url ? "a" : "div";
+  const wrapperProps = item.caseStudy
+    ? { href: item.caseStudy }
+    : item.url
+      ? { href: item.url, target: "_blank", rel: "noreferrer" }
+      : {};
   const host = item.url ? item.url.replace(/^https?:\/\//, "").replace(/\/$/, "") : "";
 
   return (
@@ -54,9 +56,9 @@ export default function PortfolioCard({ item }: { item: PortfolioItem }) {
             </span>
           ))}
         </div>
-        {item.url && (
+        {(item.caseStudy || item.url) && (
           <span className="mt-4 font-label text-xs uppercase tracking-[0.18em] text-flare-cyan">
-            View live →
+            {item.caseStudy ? "Read the case study →" : "View live →"}
           </span>
         )}
       </motion.div>

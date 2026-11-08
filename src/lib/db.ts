@@ -46,12 +46,28 @@ function ensureSchema(): Promise<void> {
         );
       `);
 
-      const existing = await db.query("SELECT id FROM site_content WHERE id = 1;");
+      const existing = await db.query("SELECT data FROM site_content WHERE id = 1;");
       if (existing.rowCount === 0) {
         await db.query(
           "INSERT INTO site_content (id, data) VALUES (1, $1::jsonb) ON CONFLICT (id) DO NOTHING;",
           [JSON.stringify(defaultContent)]
         );
+      } else {
+        // Content migrations: when data/content.json ships a higher contentVersion
+        // than the one stored in the database, the stored content is backed up
+        // (row id = 1000 + old version, never overwritten) and replaced with the
+        // new default content. Edits made later from /admin keep the version
+        // number, so they are never touched by this again.
+        const stored = existing.rows[0].data as { contentVersion?: number };
+        const storedVersion = stored?.contentVersion ?? 1;
+        const targetVersion = (defaultContent as { contentVersion?: number }).contentVersion ?? 1;
+        if (storedVersion < targetVersion) {
+          await db.query(
+            "INSERT INTO site_content (id, data) VALUES ($1, $2::jsonb) ON CONFLICT (id) DO NOTHING;",
+            [1000 + storedVersion, JSON.stringify(stored)]
+          );
+          await db.query("UPDATE site_content SET data = $1::jsonb WHERE id = 1;", [JSON.stringify(defaultContent)]);
+        }
       }
     })();
   }

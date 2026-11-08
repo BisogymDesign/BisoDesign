@@ -1,4 +1,5 @@
 {
+  "contentVersion": 2,
   "brand": "BisoDesign",
   "tagline": "Websites & automations for UK small businesses",
   "heroTitle": "Websites that win you customers. Automations that save you hours.",
@@ -99,6 +100,7 @@
       "title": "Sayah Recovery",
       "description": "Website for a vehicle & HGV recovery company in North London. Built so stranded drivers can get help in seconds: SOS call buttons, a WhatsApp button that shares the driver's GPS location automatically, a moderated customer review system with its own admin panel, and local SEO (schema.org + sitemap). Hand-coded in HTML, CSS & JavaScript with Firebase.",
       "url": "https://sayahrecovery.co.uk/",
+      "caseStudy": "/work/sayah-recovery",
       "tags": ["Client project", "Design", "Development", "Automation"]
     },
     {
