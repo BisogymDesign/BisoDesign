@@ -33,6 +33,8 @@ const DEFAULT_DESCRIPTION =
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // Google Search Console ownership (URL-prefix property https://www.bisodesign.co.uk)
+  verification: { google: "qQNCJUcrABDKHddWQX0PuqQt3zxJdWr3p1jmAmfdjys" },
   title: {
     default: "BisoDesign — Websites & Automations for UK Small Businesses",
     template: "%s | BisoDesign",
