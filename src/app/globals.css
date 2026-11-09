@@ -455,6 +455,103 @@ body {
   container-type: inline-size;
 }
 
+/* ---------- Catalogue flip-book ---------- */
+
+.catalog-leaf {
+  position: absolute;
+  top: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.catalog-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.85);
+}
+.catalog-back {
+  transform: rotateY(180deg);
+}
+.catalog-face[data-pos="right"] {
+  border-radius: 4px 14px 14px 4px;
+}
+.catalog-face[data-pos="left"] {
+  border-radius: 14px 4px 4px 14px;
+}
+.catalog-face[data-pos="single"],
+[data-pos="single"] > .paper {
+  border-radius: 14px;
+}
+.catalog-leaf[data-side="front"] .catalog-back,
+.catalog-leaf[data-side="back"] .catalog-front {
+  pointer-events: none;
+}
+.catalog-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(10, 6, 2, 0.55), rgba(10, 6, 2, 0.08) 60%, rgba(10, 6, 2, 0));
+  opacity: calc(var(--shade, 0) * 0.85);
+}
+.catalog-spine {
+  position: absolute;
+  top: 0;
+  width: 28px;
+  z-index: 999;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.18) 45%, rgba(0, 0, 0, 0.18) 55%, rgba(0, 0, 0, 0));
+}
+
+/* A catalogue page: cream paper, sized in cqw so it scales with the book */
+.paper {
+  position: absolute;
+  inset: 0;
+  container-type: inline-size;
+  overflow: hidden;
+  background: #f6f1e7;
+  color: #1b1722;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+.paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 70% at 50% 0%, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 60%),
+    radial-gradient(90% 60% at 50% 110%, rgba(160, 120, 70, 0.12), rgba(160, 120, 70, 0) 70%);
+}
+[data-pos="right"] > .paper::after,
+[data-pos="left"] > .paper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 9%;
+  z-index: 15;
+  pointer-events: none;
+}
+[data-pos="right"] > .paper::after {
+  left: 0;
+  background: linear-gradient(90deg, rgba(60, 35, 10, 0.2), rgba(60, 35, 10, 0));
+}
+[data-pos="left"] > .paper::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(60, 35, 10, 0.2), rgba(60, 35, 10, 0));
+}
+.paper-dark {
+  background: radial-gradient(90% 60% at 15% 0%, rgba(255, 95, 31, 0.35), rgba(255, 95, 31, 0) 60%),
+    radial-gradient(90% 70% at 100% 100%, rgba(139, 92, 246, 0.4), rgba(139, 92, 246, 0) 60%), #0d0a14;
+  color: #fff7ed;
+}
+.paper-dark::before {
+  background: linear-gradient(rgba(139, 92, 246, 0.09) 1px, transparent 1px) 0 0 / 8cqw 8cqw,
+    linear-gradient(90deg, rgba(139, 92, 246, 0.09) 1px, transparent 1px) 0 0 / 8cqw 8cqw;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .aurora,
   .scanline,

@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/work/sayah-recovery`, lastModified: now, changeFrequency: "yearly", priority: 0.8 },
     { url: `${SITE_URL}/templates`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/catalog`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     ...templates.map((t) => ({
       url: `${SITE_URL}/templates/${t.slug}`,
       lastModified: now,
