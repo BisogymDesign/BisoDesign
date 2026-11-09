@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { readContent } from "@/lib/store";
 import FlipBook from "@/components/catalog/FlipBook";
-import { buildCatalogPages } from "@/components/catalog/pages";
+import { buildCatalogPages } from "@/components/catalog/book";
 
 export const metadata: Metadata = {
   title: "The Catalogue — Online Shops, Company Websites, Platforms & Fleet Apps",
   description:
-    "Flip through what BisoDesign can build: e-commerce shops, company websites, booking platforms, and fleet & driver apps that dispatch jobs with live GPS location.",
+    "Flip through what BisoDesign can build: online shops with 360° product pages, websites for every kind of business, booking platforms, and fleet & driver apps with live GPS location.",
   alternates: { canonical: "/catalog" },
 };
 
@@ -29,8 +29,8 @@ export default async function CatalogPage() {
           Flip through <span className="text-gradient">what we can build</span>.
         </h1>
         <p className="mx-auto mt-5 max-w-2xl text-muted md:text-lg">
-          Online shops, company websites, platforms and fleet apps with live driver location — scroll and the pages
-          turn on their own.
+          Online shops with 360° products you can spin, websites for every kind of business, platforms and fleet apps
+          with live driver location — scroll and the pages turn on their own.
         </p>
       </section>
 

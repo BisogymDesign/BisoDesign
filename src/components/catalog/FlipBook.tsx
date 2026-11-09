@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type MouseEvent, type ReactNode } from "react";
 
 /**
  * A scroll-driven 3D book. Scrolling turns the pages.
@@ -13,9 +13,10 @@ import { useCallback, useEffect, useRef, useState, type MouseEvent, type ReactNo
 
 type Mode = "spread" | "single" | "list";
 
-const SEG = 0.9; // viewport heights of scrolling per page turn
+const SEG = 0.8; // viewport heights of scrolling per page turn
 const RATIO = 0.72; // page width / height
 const clamp = (x: number, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const folio = (i: number) => ({ "--folio": `"${String(i).padStart(2, "0")}"` }) as CSSProperties;
 const smooth = (x: number) => x * x * (3 - 2 * x);
 
 export default function FlipBook({ pages }: { pages: ReactNode[] }) {
@@ -60,6 +61,7 @@ export default function FlipBook({ pages }: { pages: ReactNode[] }) {
   useEffect(() => {
     if (mode !== "spread" && mode !== "single") return;
     let raf = 0;
+    const spread = mode === "spread";
     const update = () => {
       raf = 0;
       const sec = sectionRef.current;
@@ -67,15 +69,18 @@ export default function FlipBook({ pages }: { pages: ReactNode[] }) {
       const vh = window.innerHeight;
       const p = clamp(-sec.getBoundingClientRect().top / (vh * SEG), 0, turns);
       const persp = Math.round(dims.w * 5);
+      const base = Math.floor(p);
       leafRefs.current.forEach((el, i) => {
         if (!el) return;
+        // only leaves around the open spread are on screen; live content elsewhere can rest
+        el.dataset.active = String(spread ? i >= base - 1 && i <= base + 1 : i >= base && i <= base + 1);
         const local = i < turns ? smooth(clamp((p - i - 0.12) / 0.76)) : 0;
         el.style.transform = `perspective(${persp}px) rotateY(${(-180 * local).toFixed(2)}deg)`;
         el.style.zIndex = String(local < 0.5 ? 2 * leafCount - i : leafCount + i);
         el.style.setProperty("--shade", Math.sin(local * Math.PI).toFixed(3));
         el.dataset.side = local < 0.5 ? "front" : "back";
       });
-      if (mode === "spread") {
+      if (spread) {
         // closed book at both ends: centre the cover, then the back cover
         const first = smooth(clamp((p - 0.12) / 0.76));
         const last = smooth(clamp((p - (turns - 1) - 0.12) / 0.76));
@@ -146,7 +151,7 @@ export default function FlipBook({ pages }: { pages: ReactNode[] }) {
         </div>
         <div className="grid gap-6 md:grid-cols-2" onClick={onClick}>
           {pages.map((page, i) => (
-            <div key={i} id={`catalog-page-${i}`} className="relative aspect-[0.72] w-full scroll-mt-28 overflow-hidden rounded-xl" data-pos="single">
+            <div key={i} id={`catalog-page-${i}`} className="relative aspect-[0.72] w-full scroll-mt-28 overflow-hidden rounded-xl" data-pos="single" style={folio(i)}>
               {page}
             </div>
           ))}
@@ -183,12 +188,12 @@ export default function FlipBook({ pages }: { pages: ReactNode[] }) {
                 style={{ left: spread ? dims.w : 0, width: dims.w, height: dims.h }}
                 data-side="front"
               >
-                <div className="catalog-face catalog-front" data-pos={spread ? "right" : "single"}>
+                <div className="catalog-face catalog-front" data-pos={spread ? "right" : "single"} style={folio(spread ? 2 * i : i)}>
                   {front}
                   <div className="catalog-shade" />
                 </div>
                 {spread && back && (
-                  <div className="catalog-face catalog-back" data-pos="left">
+                  <div className="catalog-face catalog-back" data-pos="left" style={folio(2 * i + 1)}>
                     {back}
                     <div className="catalog-shade" />
                   </div>

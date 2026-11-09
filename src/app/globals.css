@@ -506,6 +506,11 @@ body {
   background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.18) 45%, rgba(0, 0, 0, 0.18) 55%, rgba(0, 0, 0, 0));
 }
 
+/* Page numbers come from the book (--folio on each page slot), so pages can be reordered freely */
+.catalog-folio::before {
+  content: var(--folio, "");
+}
+
 /* A catalogue page: cream paper, sized in cqw so it scales with the book */
 .paper {
   position: absolute;

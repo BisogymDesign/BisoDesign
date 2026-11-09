@@ -8,20 +8,21 @@ import type { CSSProperties, ReactNode } from "react";
  * mockups are fictional concept designs.
  */
 
-const q = (n: number) => `${n}cqw`;
-const INK = "#1b1722";
-const MUTED = "#5b5464";
+export const q = (n: number) => `${n}cqw`;
+export const INK = "#1b1722";
+export const MUTED = "#5b5464";
 const ORANGE = "#c2410c";
-const GRADIENT = "linear-gradient(135deg, #ff5f1f, #c04cfd 60%, #8b5cf6)";
+export const GRADIENT = "linear-gradient(135deg, #ff5f1f, #c04cfd 60%, #8b5cf6)";
 
 // ───────────────────────── Page furniture ─────────────────────────
 
-function Paper({ children, dark, folio, chapter }: { children: ReactNode; dark?: boolean; folio?: number; chapter?: string }) {
+/** A page. `folio` prints the page number in the footer — the book supplies it (--folio), so pages can be reordered freely. */
+export function Paper({ children, dark, folio, chapter }: { children: ReactNode; dark?: boolean; folio?: boolean; chapter?: string }) {
   return (
     <div className={`paper${dark ? " paper-dark" : ""}`}>
       <div className="relative z-10 flex h-full flex-col" style={{ padding: `${q(7)} ${q(7)} ${q(4.5)}` }}>
         <div className="flex min-h-0 flex-1 flex-col">{children}</div>
-        {folio !== undefined && (
+        {folio && (
           <div
             className="flex items-center justify-between font-label uppercase"
             style={{
@@ -34,7 +35,7 @@ function Paper({ children, dark, folio, chapter }: { children: ReactNode; dark?:
             }}
           >
             <span>BisoDesign · {chapter}</span>
-            <span>{String(folio).padStart(2, "0")}</span>
+            <span className="catalog-folio" />
           </div>
         )}
       </div>
@@ -42,7 +43,7 @@ function Paper({ children, dark, folio, chapter }: { children: ReactNode; dark?:
   );
 }
 
-function Kicker({ children, dark }: { children: ReactNode; dark?: boolean }) {
+export function Kicker({ children, dark }: { children: ReactNode; dark?: boolean }) {
   return (
     <p className="font-label font-bold uppercase" style={{ fontSize: q(2.4), letterSpacing: "0.22em", color: dark ? "#67e8f9" : ORANGE }}>
       {children}
@@ -50,7 +51,7 @@ function Kicker({ children, dark }: { children: ReactNode; dark?: boolean }) {
   );
 }
 
-function Title({ children, size = 7.2 }: { children: ReactNode; size?: number }) {
+export function Title({ children, size = 7.2 }: { children: ReactNode; size?: number }) {
   return (
     <h2 className="font-heading font-extrabold" style={{ fontSize: q(size), lineHeight: 1.06, marginTop: q(2), letterSpacing: "-0.02em" }}>
       {children}
@@ -58,7 +59,7 @@ function Title({ children, size = 7.2 }: { children: ReactNode; size?: number })
   );
 }
 
-function Lead({ children, dark }: { children: ReactNode; dark?: boolean }) {
+export function Lead({ children, dark }: { children: ReactNode; dark?: boolean }) {
   return <p style={{ fontSize: q(3.3), lineHeight: 1.5, color: dark ? "#d6d0c9" : MUTED, marginTop: q(3) }}>{children}</p>;
 }
 
@@ -83,7 +84,7 @@ function Tick({ size = 4.2 }: { size?: number }) {
   );
 }
 
-function Checks({ items }: { items: string[] }) {
+export function Checks({ items }: { items: string[] }) {
   return (
     <ul style={{ marginTop: q(4), display: "grid", gap: q(2.3) }}>
       {items.map((t) => (
@@ -96,7 +97,7 @@ function Checks({ items }: { items: string[] }) {
   );
 }
 
-function Meta({ ideal, price }: { ideal: string; price: string }) {
+export function Meta({ ideal, price }: { ideal: string; price: string }) {
   return (
     <div className="mt-auto" style={{ paddingTop: q(3) }}>
       <p style={{ fontSize: q(2.7), lineHeight: 1.45, color: MUTED }}>
@@ -112,7 +113,7 @@ function Meta({ ideal, price }: { ideal: string; price: string }) {
   );
 }
 
-function Chips({ items, style }: { items: string[]; style?: CSSProperties }) {
+export function Chips({ items, style }: { items: string[]; style?: CSSProperties }) {
   return (
     <div className="flex flex-wrap" style={{ gap: q(1.5), ...style }}>
       {items.map((t) => (
@@ -129,7 +130,7 @@ function Chips({ items, style }: { items: string[]; style?: CSSProperties }) {
 
 // ───────────────────────── Device mockups ─────────────────────────
 
-function Browser({ url, children, style, dark }: { url: string; children: ReactNode; style?: CSSProperties; dark?: boolean }) {
+export function Browser({ url, children, style, dark }: { url: string; children: ReactNode; style?: CSSProperties; dark?: boolean }) {
   return (
     <div
       style={{
@@ -157,7 +158,7 @@ function Browser({ url, children, style, dark }: { url: string; children: ReactN
   );
 }
 
-function Phone({ children, style, light }: { children: ReactNode; style?: CSSProperties; light?: boolean }) {
+export function Phone({ children, style, light }: { children: ReactNode; style?: CSSProperties; light?: boolean }) {
   return (
     <div style={{ background: "#0b0b0d", borderRadius: q(5), padding: q(1.1), boxShadow: "0 3cqw 6cqw -2cqw rgba(30,20,10,.55)", ...style }}>
       <div className="relative h-full overflow-hidden" style={{ borderRadius: q(4), background: light ? "#fff" : "#0f1115", color: light ? INK : "#f5f5f5" }}>
@@ -311,31 +312,24 @@ function Cover() {
   );
 }
 
-const CHAPTERS = [
-  { n: "01", title: "Online shops", note: "E-commerce that sells 24/7", page: 3 },
-  { n: "02", title: "Company websites", note: "Trust at first glance", page: 5 },
-  { n: "03", title: "Platforms & portals", note: "Logins, bookings, dashboards", page: 7 },
-  { n: "04", title: "Fleet & driver apps", note: "Jobs sent with live location", page: 9 },
-  { n: "05", title: "Automations", note: "Admin that does itself", page: 13 },
-  { n: "06", title: "How we work", note: "Simple, honest, fixed price", page: 15 },
-];
+type ChapterEntry = { n: string; title: string; note: string; page: number };
 
-function Contents() {
+function Contents({ chapters, startPage }: { chapters: ChapterEntry[]; startPage: number }) {
   return (
-    <Paper folio={1} chapter="Contents">
+    <Paper folio chapter="Contents">
       <Kicker>Inside this catalogue</Kicker>
       <Title size={9}>Contents</Title>
-      <div style={{ marginTop: q(6), display: "grid", gap: q(3.6) }}>
-        {CHAPTERS.map((c) => (
+      <div style={{ marginTop: q(4.5), display: "grid", gap: q(2.5) }}>
+        {chapters.map((c) => (
           <button key={c.n} type="button" data-goto={c.page} className="group flex w-full items-end text-left" style={{ gap: q(2.6) }}>
-            <span className="font-heading font-extrabold text-gradient" style={{ fontSize: q(5.6), lineHeight: 1 }}>
+            <span className="font-heading font-extrabold text-gradient" style={{ fontSize: q(5), lineHeight: 1, width: q(7), flex: "none" }}>
               {c.n}
             </span>
             <span>
-              <span className="block font-heading font-bold transition-colors group-hover:text-[#c2410c]" style={{ fontSize: q(3.7), lineHeight: 1.1 }}>
+              <span className="block font-heading font-bold transition-colors group-hover:text-[#c2410c]" style={{ fontSize: q(3.4), lineHeight: 1.1 }}>
                 {c.title}
               </span>
-              <span className="block" style={{ fontSize: q(2.5), color: MUTED, marginTop: q(0.6) }}>
+              <span className="block" style={{ fontSize: q(2.3), color: MUTED, marginTop: q(0.4) }}>
                 {c.note}
               </span>
             </span>
@@ -348,13 +342,13 @@ function Contents() {
       </div>
       <button
         type="button"
-        data-goto={16}
+        data-goto={startPage}
         className="mt-auto self-start font-label font-bold uppercase"
-        style={{ fontSize: q(2.6), letterSpacing: "0.14em", color: "#fff", background: GRADIENT, padding: `${q(1.8)} ${q(3.6)}`, borderRadius: 99 }}
+        style={{ fontSize: q(2.4), letterSpacing: "0.14em", color: "#fff", background: GRADIENT, padding: `${q(1.6)} ${q(3.4)}`, borderRadius: 99 }}
       >
         Start your project →
       </button>
-      <p style={{ fontSize: q(2.4), color: MUTED, marginTop: q(2.4) }}>Tip: tap a chapter to jump straight to it.</p>
+      <p style={{ fontSize: q(2.2), color: MUTED, marginTop: q(1.8) }}>Tip: tap a chapter to jump straight to it.</p>
     </Paper>
   );
 }
@@ -367,7 +361,7 @@ function Intro() {
     { icon: "🔑", t: "Yours to keep", d: "No platform lock-in. You own the code." },
   ];
   return (
-    <Paper folio={2} chapter="Before you start">
+    <Paper folio chapter="Before you start">
       <Kicker>Before you start</Kicker>
       <Title>Every design here is a starting point.</Title>
       <Lead>
@@ -396,7 +390,7 @@ function Intro() {
 
 function ShopText() {
   return (
-    <Paper folio={3} chapter="Online shops">
+    <Paper folio chapter="Online shops">
       <Kicker>Chapter 01 · Online shops</Kicker>
       <Title>Online shops that sell while you sleep.</Title>
       <Lead>A fast, beautiful shop that makes buying effortless — on any phone, at any hour.</Lead>
@@ -423,7 +417,7 @@ function ShopMockup() {
     { e: "🧣", n: "Wool Scarf", p: "£28", c: "#f6e7d2" },
   ];
   return (
-    <Paper folio={4} chapter="Online shops">
+    <Paper folio chapter="Online shops">
       <Kicker>Concept design · online boutique</Kicker>
       <div className="relative" style={{ marginTop: q(4) }}>
         <Browser url="maisonlune.co.uk">
@@ -490,8 +484,8 @@ function ShopMockup() {
 
 function CompanyText() {
   return (
-    <Paper folio={5} chapter="Company websites">
-      <Kicker>Chapter 02 · Company websites</Kicker>
+    <Paper folio chapter="Company websites">
+      <Kicker>Chapter 03 · Company websites</Kicker>
       <Title>Company websites that earn trust in seconds.</Title>
       <Lead>When someone checks you out, your website decides whether they call you — or someone else.</Lead>
       <Checks
@@ -513,7 +507,7 @@ function CompanyMockup() {
   const navy = "#0f2a44";
   const gold = "#d4a24c";
   return (
-    <Paper folio={6} chapter="Company websites">
+    <Paper folio chapter="Company websites">
       <Kicker>Concept design · accountancy firm</Kicker>
       <div className="relative" style={{ marginTop: q(4) }}>
         <Browser url="harbourandco.co.uk">
@@ -593,8 +587,8 @@ function CompanyMockup() {
 
 function PlatformText() {
   return (
-    <Paper folio={7} chapter="Platforms & portals">
-      <Kicker>Chapter 03 · Platforms & portals</Kicker>
+    <Paper folio chapter="Platforms & portals">
+      <Kicker>Chapter 05 · Platforms & portals</Kicker>
       <Title>Platforms that run your business with you.</Title>
       <Lead>When a website isn&apos;t enough: logins, bookings, payments and dashboards — built around how you actually work.</Lead>
       <Checks
@@ -615,7 +609,7 @@ function PlatformText() {
 function PlatformMockup() {
   const violet = "#6d28d9";
   return (
-    <Paper folio={8} chapter="Platforms & portals">
+    <Paper folio chapter="Platforms & portals">
       <Kicker>Concept design · gym & studio platform</Kicker>
       <div className="relative" style={{ marginTop: q(4) }}>
         <Browser url="app.pulsehub.co.uk">
@@ -699,8 +693,8 @@ function FleetText() {
     "Proof of delivery: photos, signature and times saved on every job.",
   ];
   return (
-    <Paper folio={9} chapter="Fleet & driver apps">
-      <Kicker>Chapter 04 · Fleet & driver apps</Kicker>
+    <Paper folio chapter="Fleet & driver apps">
+      <Kicker>Chapter 06 · Fleet & driver apps</Kicker>
       <Title size={6.8}>Send jobs to drivers — with live location.</Title>
       <Lead>Your drivers mark themselves available, you see them live on the map, and the nearest one gets the job in seconds.</Lead>
       <ol style={{ marginTop: q(4), display: "grid", gap: q(2.2) }}>
@@ -723,7 +717,7 @@ function FleetText() {
 
 function DriverAppMockup() {
   return (
-    <Paper folio={10} chapter="Fleet & driver apps">
+    <Paper folio chapter="Fleet & driver apps">
       <Kicker>Concept design · driver app</Kicker>
       <Title size={5.6}>In the driver&apos;s pocket.</Title>
       <div className="flex justify-center" style={{ gap: q(4), marginTop: q(5) }}>
@@ -831,7 +825,7 @@ function DispatchMockup() {
     { x: 56, y: 56, kind: "available" },
   ];
   return (
-    <Paper folio={11} chapter="Fleet & driver apps">
+    <Paper folio chapter="Fleet & driver apps">
       <Kicker>Concept design · dispatcher dashboard</Kicker>
       <Title size={5.6}>Your whole fleet on one live map.</Title>
       <Browser url="dispatch.yourfleet.co.uk" dark style={{ marginTop: q(4) }}>
@@ -906,7 +900,7 @@ function TrackingMockup() {
     ["Delivered", "", "next"],
   ];
   return (
-    <Paper folio={12} chapter="Fleet & driver apps">
+    <Paper folio chapter="Fleet & driver apps">
       <Kicker>Concept design · customer tracking</Kicker>
       <Title size={5.6}>No more “where&apos;s my driver?” calls.</Title>
       <div className="grid grid-cols-[44cqw_1fr]" style={{ gap: q(4), marginTop: q(5) }}>
@@ -999,8 +993,8 @@ function TrackingMockup() {
 
 function AutomationText() {
   return (
-    <Paper folio={13} chapter="Automations">
-      <Kicker>Chapter 05 · Automations</Kicker>
+    <Paper folio chapter="Automations">
+      <Kicker>Chapter 07 · Automations</Kicker>
       <Title>Automations that do the admin for you.</Title>
       <Lead>They plug into any website, shop, platform or app in this catalogue — and work 24/7, even when you can&apos;t.</Lead>
       <Checks
@@ -1025,7 +1019,7 @@ function AutomationVisual() {
     { when: "A booking is made", then: ["Confirmation email", "Reminder 24h before", "Reminder 2h before"] },
   ];
   return (
-    <Paper folio={14} chapter="Automations">
+    <Paper folio chapter="Automations">
       <Kicker>Inside an automation</Kicker>
       <Title size={5.6}>When this happens → that happens. Automatically.</Title>
       <div style={{ marginTop: q(5), display: "grid", gap: q(3) }}>
@@ -1062,8 +1056,8 @@ function AutomationVisual() {
 
 function HowWeWork({ steps }: { steps: { title: string; description: string }[] }) {
   return (
-    <Paper folio={15} chapter="How we work">
-      <Kicker>Chapter 06 · How we work</Kicker>
+    <Paper folio chapter="How we work">
+      <Kicker>Chapter 08 · How we work</Kicker>
       <Title>Simple, honest — and built with you.</Title>
       <div style={{ marginTop: q(5), display: "grid", gap: q(3.2) }}>
         {steps.slice(0, 4).map((s, i) => (
@@ -1090,7 +1084,7 @@ function HowWeWork({ steps }: { steps: { title: string; description: string }[] 
 
 function CallToAction({ whatsappHref, email }: { whatsappHref: string; email: string }) {
   return (
-    <Paper dark folio={16} chapter="Your turn">
+    <Paper dark folio chapter="Your turn">
       <Kicker dark>Your turn</Kicker>
       <h2 className="font-heading font-extrabold" style={{ fontSize: q(12), lineHeight: 1, marginTop: q(4), letterSpacing: "-0.03em" }}>
         Let&apos;s build
@@ -1157,32 +1151,24 @@ function BackCover() {
   );
 }
 
-export type CatalogInfo = {
-  steps: { title: string; description: string }[];
-  whatsappHref: string;
-  email: string;
+export type { ChapterEntry };
+export {
+  Cover,
+  Contents,
+  Intro,
+  ShopText,
+  ShopMockup,
+  CompanyText,
+  CompanyMockup,
+  PlatformText,
+  PlatformMockup,
+  FleetText,
+  DriverAppMockup,
+  DispatchMockup,
+  TrackingMockup,
+  AutomationText,
+  AutomationVisual,
+  HowWeWork,
+  CallToAction,
+  BackCover,
 };
-
-/** The catalogue in reading order. Page index = page number (the cover is page 0). */
-export function buildCatalogPages(info: CatalogInfo): ReactNode[] {
-  return [
-    <Cover key="cover" />,
-    <Contents key="contents" />,
-    <Intro key="intro" />,
-    <ShopText key="shop-text" />,
-    <ShopMockup key="shop" />,
-    <CompanyText key="company-text" />,
-    <CompanyMockup key="company" />,
-    <PlatformText key="platform-text" />,
-    <PlatformMockup key="platform" />,
-    <FleetText key="fleet-text" />,
-    <DriverAppMockup key="driver" />,
-    <DispatchMockup key="dispatch" />,
-    <TrackingMockup key="tracking" />,
-    <AutomationText key="auto-text" />,
-    <AutomationVisual key="auto" />,
-    <HowWeWork key="how" steps={info.steps} />,
-    <CallToAction key="cta" whatsappHref={info.whatsappHref} email={info.email} />,
-    <BackCover key="back" />,
-  ];
-}
