@@ -133,8 +133,25 @@ export default function FlipBook({ pages }: { pages: ReactNode[] }) {
     goToPage(Number(target.getAttribute("data-goto")));
   };
 
-  // ── Before we know the screen size: reserve space (no layout jump) ──
-  if (!mode) return <div className="min-h-screen" aria-hidden />;
+  // ── Before we know the screen size (server render + first paint): every page is already in the HTML,
+  // so search engines and no-JS visitors get the full text; it stays invisible for the split second
+  // until the book takes over, which keeps the layout from jumping. ──
+  if (!mode) {
+    return (
+      <div className="catalog-ssr mx-auto h-screen max-w-5xl overflow-hidden px-4 opacity-0">
+        <noscript>
+          <style>{".catalog-ssr{opacity:1!important;height:auto!important;overflow:visible!important}"}</style>
+        </noscript>
+        <div className="grid gap-6 md:grid-cols-2">
+          {pages.map((page, i) => (
+            <div key={i} className="relative aspect-[0.72] w-full overflow-hidden rounded-xl" data-pos="single" style={folio(i)}>
+              {page}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   // ── List view: a calm, stacked catalogue with no 3D motion ──
   if (mode === "list") {

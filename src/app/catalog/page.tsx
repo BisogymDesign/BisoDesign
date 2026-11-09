@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { readContent } from "@/lib/store";
+import { SITE_URL } from "@/lib/site";
 import FlipBook from "@/components/catalog/FlipBook";
 import { buildCatalogPages } from "@/components/catalog/book";
 
@@ -21,8 +22,38 @@ export default async function CatalogPage() {
     email: content.contactEmail,
   });
 
+  // Structured data: tells Google this page is a catalogue of the services offered
+  const offer = (name: string, description: string, minPrice?: number) => ({
+    "@type": "Offer",
+    itemOffered: { "@type": "Service", name, description, provider: { "@id": `${SITE_URL}/#business` } },
+    ...(minPrice
+      ? { priceSpecification: { "@type": "PriceSpecification", minPrice, priceCurrency: "GBP" } }
+      : {}),
+  });
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "The BisoDesign Catalogue",
+    url: `${SITE_URL}/catalog`,
+    description: metadata.description,
+    isPartOf: { "@type": "WebSite", name: content.brand, url: SITE_URL },
+    mainEntity: {
+      "@type": "OfferCatalog",
+      name: "What BisoDesign can build",
+      itemListElement: [
+        offer("Online shops", "Hand-coded e-commerce websites with secure checkout, stock and order management.", 2095),
+        offer("Product pages with 360° views", "Product pages with 360° spin, colour and size pickers, configurators and launch pages."),
+        offer("Company websites", "Fast, hand-coded websites for UK businesses, built to earn trust and enquiries.", 495),
+        offer("Platforms & client portals", "Bookings, memberships, payments, logins and live dashboards."),
+        offer("Fleet & driver apps", "Driver apps and dispatch dashboards that send jobs to available drivers with live GPS location."),
+        offer("Business automations", "Enquiry alerts, booking reminders, review requests, invoices and CRM sync.", 150),
+      ],
+    },
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <section className="mx-auto max-w-4xl px-6 pb-4 pt-32 text-center md:pt-36">
         <p className="hud-label justify-center">The catalogue · Vol. 01</p>
         <h1 className="mt-4 font-heading text-4xl font-extrabold leading-tight md:text-6xl">

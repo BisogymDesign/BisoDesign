@@ -67,6 +67,7 @@ export default async function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    "@id": `${SITE_URL}/#business`,
     name: content.brand,
     url: SITE_URL,
     image: `${SITE_URL}/opengraph-image`,
