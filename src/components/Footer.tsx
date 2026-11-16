@@ -3,6 +3,8 @@ import type { SocialLink } from "@/types/content";
 
 const NAV = [
   { href: "/services", label: "Services" },
+  { href: "/website-redesign", label: "Website redesign" },
+  { href: "/website-care-plans", label: "Website care plans" },
   { href: "/solutions", label: "Solutions" },
   { href: "/templates", label: "Templates" },
   { href: "/catalog", label: "Catalogue" },

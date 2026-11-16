@@ -37,7 +37,34 @@ export default async function ServicesPage() {
         ))}
       </div>
 
-      <ScrollReveal className="mt-10">
+      <div className="mt-10 grid gap-6 md:grid-cols-2">
+        {[
+          {
+            href: "/website-redesign",
+            label: "Already have a website?",
+            title: "Website redesign — faster, modern, and your Google rankings kept.",
+            cta: "Redesign →",
+          },
+          {
+            href: "/website-care-plans",
+            label: "Website care plans",
+            title: "Backups, security, monitoring and monthly changes — from £29/month.",
+            cta: "Care plans →",
+          },
+        ].map((x, i) => (
+          <ScrollReveal key={x.href} delay={i * 0.08} className="h-full">
+            <Link href={x.href} className="glass neon group flex h-full flex-col justify-between gap-4 rounded-2xl p-6">
+              <div>
+                <p className="hud-label">{x.label}</p>
+                <p className="mt-2 font-heading text-lg font-bold">{x.title}</p>
+              </div>
+              <span className="font-label text-xs uppercase tracking-[0.16em] text-flare-cyan">{x.cta}</span>
+            </Link>
+          </ScrollReveal>
+        ))}
+      </div>
+
+      <ScrollReveal className="mt-6">
         <Link
           href="/solutions"
           className="glass neon group flex flex-col items-start justify-between gap-4 rounded-2xl p-6 md:flex-row md:items-center"

@@ -4,7 +4,15 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import type { PricingPackage } from "@/types/content";
 
-export default function PricingCard({ pkg }: { pkg: PricingPackage }) {
+export default function PricingCard({
+  pkg,
+  href = "/about#contact",
+  cta = "Get started",
+}: {
+  pkg: PricingPackage;
+  href?: string;
+  cta?: string;
+}) {
   return (
     <motion.div
       whileHover={{ y: -8 }}
@@ -39,11 +47,8 @@ export default function PricingCard({ pkg }: { pkg: PricingPackage }) {
           </li>
         ))}
       </ul>
-      <Link
-        href="/about#contact"
-        className={`mt-8 ${pkg.highlighted ? "btn-primary" : "btn-ghost"}`}
-      >
-        Get started
+      <Link href={href} className={`mt-8 ${pkg.highlighted ? "btn-primary" : "btn-ghost"}`}>
+        {cta}
       </Link>
     </motion.div>
   );

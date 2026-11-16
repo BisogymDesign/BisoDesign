@@ -51,7 +51,32 @@ export default async function PricingPage() {
         ))}
       </div>
 
-      <ScrollReveal className="mt-12">
+      <div className="mt-12 grid gap-6 md:grid-cols-2">
+        <ScrollReveal className="h-full">
+          <Link href="/website-care-plans" className="glass neon flex h-full flex-col justify-between gap-4 rounded-2xl p-6">
+            <div>
+              <p className="hud-label">Website care plans</p>
+              <p className="mt-2 text-sm text-muted md:text-base">
+                Keep your site safe, fast and updated: Essential £29, Growth £59 or Partner £99 a month.
+              </p>
+            </div>
+            <span className="font-label text-xs uppercase tracking-[0.16em] text-flare-cyan">See care plans →</span>
+          </Link>
+        </ScrollReveal>
+        <ScrollReveal delay={0.08} className="h-full">
+          <Link href="/website-redesign" className="glass neon flex h-full flex-col justify-between gap-4 rounded-2xl p-6">
+            <div>
+              <p className="hud-label">Website redesign</p>
+              <p className="mt-2 text-sm text-muted md:text-base">
+                Rebuild an old or slow site with the same fixed-price packages — and keep your Google rankings.
+              </p>
+            </div>
+            <span className="font-label text-xs uppercase tracking-[0.16em] text-flare-cyan">Redesign your site →</span>
+          </Link>
+        </ScrollReveal>
+      </div>
+
+      <ScrollReveal className="mt-6">
         <Link
           href="/solutions"
           className="glass neon flex flex-col items-start justify-between gap-4 rounded-2xl p-6 md:flex-row md:items-center"

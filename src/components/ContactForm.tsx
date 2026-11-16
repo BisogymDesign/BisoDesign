@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { solutions } from "@/data/solutions";
 import { templates } from "@/data/templates";
+import { interests } from "@/data/care";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -12,8 +13,8 @@ export default function ContactForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const messageRef = useRef<HTMLTextAreaElement>(null);
 
-  // Pre-fill the message when arriving from a solution guide (?topic=<slug>)
-  // or a website template (?template=<slug>).
+  // Pre-fill the message when arriving from a solution guide (?topic=<slug>),
+  // a website template (?template=<slug>) or a service / care plan (?interest=<key>).
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const solution = solutions.find((s) => s.slug === params.get("topic"));
@@ -22,7 +23,7 @@ export default function ContactForm() {
       ? `"${solution.title}"`
       : template
         ? `a website like the "${template.name}" template (${template.industry})`
-        : null;
+        : interests[params.get("interest") ?? ""] ?? null;
     if (interest && messageRef.current && !messageRef.current.value) {
       messageRef.current.value = `Hi! I'm interested in ${interest}.\n\nMy business: \nWhat I'd like to achieve: `;
     }
