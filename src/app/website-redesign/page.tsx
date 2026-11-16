@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { readContent } from "@/lib/store";
 import { SITE_URL } from "@/lib/site";
+import { solutions } from "@/data/solutions";
+import { carePlans } from "@/data/care";
+import type { PricingPackage } from "@/types/content";
 import ScrollReveal from "@/components/ScrollReveal";
 import PricingCard from "@/components/PricingCard";
 import FaqAccordion from "@/components/FaqAccordion";
@@ -10,9 +12,125 @@ import BeforeAfter from "@/components/BeforeAfter";
 export const metadata: Metadata = {
   title: "Website Redesign Services UK — Bespoke, Hand-Coded Redesigns",
   description:
-    "Bespoke website redesign services for UK businesses. A faster, modern site that wins more enquiries — while protecting the Google rankings you've already earned. Fixed prices from £495.",
+    "Bespoke website redesign services for UK businesses: exactly what's included and clear fixed prices from £395. A faster, modern site that wins more enquiries — while protecting the Google rankings you've already earned.",
   alternates: { canonical: "/website-redesign" },
 };
+
+/** Redesign packages — prices match the rest of the site (redesign guide £395, Ignite £1,095, Nova £2,095). */
+const PACKAGES: PricingPackage[] = [
+  {
+    id: "rd-refresh",
+    name: "Refresh",
+    price: "£395",
+    priceNote: "from",
+    tagline: "For small sites that need a modern look, real speed and a clear path to contact you.",
+    features: [
+      "Up to 5 pages redesigned & rebuilt in clean code",
+      "Your existing content moved across and tidied up",
+      "Mobile-first design with click-to-call & WhatsApp",
+      "301 redirects + SEO basics so rankings are kept",
+      "Before/after speed comparison",
+      "Around 2 weeks",
+    ],
+    highlighted: false,
+  },
+  {
+    id: "rd-grow",
+    name: "Grow",
+    price: "£1,095",
+    priceNote: "from",
+    tagline: "For businesses ready to turn their website into a steady source of enquiries.",
+    features: [
+      "Up to 10 pages, fully redesigned",
+      "Copy rewritten to win enquiries",
+      "Enquiries sent straight to your WhatsApp or email",
+      "Online booking or quote request form",
+      "Reviews section + local SEO pages",
+      "3–4 weeks",
+    ],
+    highlighted: true,
+  },
+  {
+    id: "rd-transform",
+    name: "Transform",
+    price: "£2,095",
+    priceNote: "from",
+    tagline: "For moving up to an online shop, a platform or custom features.",
+    features: [
+      "Fully custom design + interactive elements",
+      "E-commerce, payments or a custom admin panel",
+      "Custom automations (CRM, invoices, follow-ups)",
+      "Full SEO migration for larger sites",
+      "Priority support during the build",
+      "5–8 weeks",
+    ],
+    highlighted: false,
+  },
+];
+
+/** Everything a redesign can cover, grouped the way clients think about it. */
+const CAPABILITIES = [
+  {
+    icon: "🎨",
+    title: "Design & content",
+    items: [
+      "A modern design that matches the quality of your work",
+      "Layouts built for phones first",
+      "Copy rewritten so visitors understand you in seconds",
+      "Your brand colours, logo and photos used properly",
+      "Clear trust sections: reviews, accreditations, guarantees",
+    ],
+  },
+  {
+    icon: "⚡",
+    title: "Speed & technology",
+    items: [
+      "Rebuilt in clean, hand-written code — fast on any phone",
+      "Move off Wix, Squarespace or WordPress, with no monthly builder fees",
+      "Hosting, SSL and domain switch-over handled",
+      "Your email stays exactly where it is",
+      "You own the code — no lock-in",
+    ],
+  },
+  {
+    icon: "🔍",
+    title: "Google & SEO",
+    items: [
+      "Every old address redirected (301) — no broken links",
+      "Content that already ranks kept and improved",
+      "Titles, descriptions and structured data rebuilt",
+      "Sitemap submitted to Google Search Console",
+      "Local pages for the areas you cover",
+    ],
+  },
+  {
+    icon: "📞",
+    title: "More enquiries",
+    items: [
+      "Click-to-call and WhatsApp buttons on every page",
+      "Quote and contact forms that actually get answered",
+      "Online booking, quote calculators and payments",
+      "Enquiries sent straight to your phone",
+      "Automatic review requests after each job",
+    ],
+  },
+];
+
+/** Optional extras, priced from the solution guides so every price on the site stays in sync. */
+const ADD_ON_SLUGS = [
+  "instant-enquiry-alerts",
+  "review-requests",
+  "gps-callout-button",
+  "email-follow-ups",
+  "local-seo",
+  "online-booking",
+  "payment-links-invoices",
+  "instant-quote-calculator",
+  "lead-tracker-crm",
+  "ai-website-assistant",
+  "custom-admin-dashboard",
+];
+const ADD_ONS = ADD_ON_SLUGS.map((slug) => solutions.find((s) => s.slug === slug)).filter((s): s is NonNullable<typeof s> => Boolean(s));
 
 const SIGNS = [
   { icon: "🕰️", title: "It looks dated", text: "Customers judge you in seconds. An old design quietly tells them you might be out of date too." },
@@ -51,7 +169,7 @@ const FAQ = [
     id: "rd-cost",
     question: "How much does a website redesign cost in the UK?",
     answer:
-      "My redesigns use the same fixed-price packages as new sites: from £495 for a small business site, £1,095 with automations and booking, and from £2,095 for e-commerce or custom features. You get the exact price in writing before anything starts.",
+      "Redesigns start from £395 for a small site of up to 5 pages, from £1,095 with copywriting, automations and booking, and from £2,095 for e-commerce, platforms or custom features. Extras like online booking or review requests have their own fixed prices, and you get the exact total in writing before anything starts.",
   },
   {
     id: "rd-time",
@@ -76,9 +194,7 @@ const FAQ = [
   },
 ];
 
-export default async function WebsiteRedesignPage() {
-  const content = await readContent();
-
+export default function WebsiteRedesignPage() {
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -89,7 +205,16 @@ export default async function WebsiteRedesignPage() {
       url: `${SITE_URL}/website-redesign`,
       provider: { "@id": `${SITE_URL}/#business` },
       areaServed: { "@type": "Country", name: "United Kingdom" },
-      offers: { "@type": "Offer", priceSpecification: { "@type": "PriceSpecification", minPrice: 495, priceCurrency: "GBP" } },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Website redesign packages",
+        itemListElement: PACKAGES.map((p) => ({
+          "@type": "Offer",
+          name: `${p.name} redesign`,
+          description: p.tagline,
+          priceSpecification: { "@type": "PriceSpecification", minPrice: Number(p.price.replace(/[^\d]/g, "")), priceCurrency: "GBP" },
+        })),
+      },
     },
     {
       "@context": "https://schema.org",
@@ -121,7 +246,7 @@ export default async function WebsiteRedesignPage() {
               See a real project
             </Link>
           </div>
-          <p className="mt-5 font-label text-xs uppercase tracking-[0.16em] text-muted">Fixed price from £495 · No monthly builder fees · You own it</p>
+          <p className="mt-5 font-label text-xs uppercase tracking-[0.16em] text-muted">Fixed price from £395 · No monthly builder fees · You own it</p>
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
           <BeforeAfter />
@@ -185,18 +310,86 @@ export default async function WebsiteRedesignPage() {
         ))}
       </ol>
 
-      {/* Pricing */}
+      {/* Exactly what's possible */}
       <ScrollReveal className="mt-28">
-        <p className="hud-label">Redesign pricing</p>
-        <h2 className="mt-3 font-heading text-3xl font-bold md:text-4xl">Fixed prices, agreed before we start</h2>
-        <p className="mt-4 max-w-2xl text-muted">Most redesigns fit Spark or Ignite. You&apos;ll get the exact figure after your free review.</p>
+        <p className="hud-label">Exactly what I can do</p>
+        <h2 className="mt-3 font-heading text-3xl font-bold md:text-4xl">Everything a redesign can cover</h2>
+        <p className="mt-4 max-w-2xl text-muted">
+          Pick what your business needs — your free review will tell you honestly which of these will make the biggest
+          difference.
+        </p>
       </ScrollReveal>
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
-        {content.pricing.map((pkg, i) => (
-          <ScrollReveal key={pkg.id} delay={i * 0.08} className="h-full">
-            <PricingCard pkg={pkg} href="/about?interest=redesign#contact" cta="Start my redesign" />
+      <div className="mt-10 grid gap-5 md:grid-cols-2">
+        {CAPABILITIES.map((c, i) => (
+          <ScrollReveal key={c.title} delay={(i % 2) * 0.06} className="h-full">
+            <div className="glass neon h-full rounded-2xl p-7">
+              <p className="flex items-center gap-3 font-heading text-xl font-bold">
+                <span className="text-2xl">{c.icon}</span>
+                {c.title}
+              </p>
+              <ul className="mt-5 space-y-3">
+                {c.items.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-ink/90">
+                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-flare-cyan shadow-[0_0_8px_#22d3ee]" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </ScrollReveal>
         ))}
+      </div>
+
+      {/* Price list */}
+      <div id="prices" className="scroll-mt-28">
+        <ScrollReveal className="mt-28">
+          <p className="hud-label">Redesign prices</p>
+          <h2 className="mt-3 font-heading text-3xl font-bold md:text-4xl">Fixed prices, agreed before we start</h2>
+          <p className="mt-4 max-w-2xl text-muted">
+            Three clear starting points. After your free review you get the exact total in writing — no hourly billing, no
+            surprises.
+          </p>
+        </ScrollReveal>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {PACKAGES.map((pkg, i) => (
+            <ScrollReveal key={pkg.id} delay={i * 0.08} className="h-full">
+              <PricingCard pkg={pkg} href="/about?interest=redesign#contact" cta={`Start with ${pkg.name}`} />
+            </ScrollReveal>
+          ))}
+        </div>
+
+        {/* Add-ons */}
+        <ScrollReveal className="mt-16">
+          <div className="glass neon rounded-3xl p-6 md:p-10">
+            <p className="hud-label">Optional extras</p>
+            <h3 className="mt-3 font-heading text-2xl font-bold">Add exactly what you need</h3>
+            <p className="mt-2 text-sm text-muted">Each extra has a fixed starting price and its own detailed guide.</p>
+            <div className="mt-6 divide-y divide-white/5">
+              {ADD_ONS.map((s) => (
+                <Link key={s.slug} href={`/solutions/${s.slug}`} className="group flex items-center justify-between gap-4 py-3.5">
+                  <span>
+                    <span className="block font-heading text-sm font-bold transition-colors group-hover:text-flare-cyan md:text-base">{s.title}</span>
+                    <span className="block text-xs text-muted md:text-sm">{s.tagline.split(/(?<=[.!?])\s/)[0]}</span>
+                  </span>
+                  <span className="whitespace-nowrap font-label text-sm font-bold text-gradient">from {s.priceFrom}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
+
+        {/* Care */}
+        <ScrollReveal className="mt-6">
+          <Link href="/website-care-plans" className="glass neon group flex flex-col items-start justify-between gap-4 rounded-2xl p-6 md:flex-row md:items-center">
+            <div>
+              <p className="hud-label">After launch</p>
+              <p className="mt-2 font-heading text-lg font-bold">
+                Keep it looked after: {carePlans.map((p) => `${p.name} £${p.monthly}`).join(" · ")} a month
+              </p>
+            </div>
+            <span className="btn-ghost whitespace-nowrap">Care plans →</span>
+          </Link>
+        </ScrollReveal>
       </div>
 
       {/* Case study + care */}
@@ -212,11 +405,11 @@ export default async function WebsiteRedesignPage() {
           </Link>
         </ScrollReveal>
         <ScrollReveal delay={0.08} className="h-full">
-          <Link href="/website-care-plans" className="glass neon group block h-full rounded-2xl p-8">
-            <p className="hud-label">After launch</p>
-            <h3 className="mt-3 font-heading text-xl font-bold">Website care plans from £29/month</h3>
-            <p className="mt-2 text-sm text-muted">Backups, security, monitoring and changes — so your new site stays fast and safe.</p>
-            <span className="mt-5 inline-block font-label text-xs uppercase tracking-[0.16em] text-flare-cyan">See care plans →</span>
+          <Link href="/catalog" className="glass neon group block h-full rounded-2xl p-8">
+            <p className="hud-label">Need ideas?</p>
+            <h3 className="mt-3 font-heading text-xl font-bold">Flip through the catalogue</h3>
+            <p className="mt-2 text-sm text-muted">Nine website designs for different businesses, product pages with 360° views, platforms and apps.</p>
+            <span className="mt-5 inline-block font-label text-xs uppercase tracking-[0.16em] text-flare-cyan">Open the catalogue →</span>
           </Link>
         </ScrollReveal>
       </div>

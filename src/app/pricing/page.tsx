@@ -68,7 +68,7 @@ export default async function PricingPage() {
             <div>
               <p className="hud-label">Website redesign</p>
               <p className="mt-2 text-sm text-muted md:text-base">
-                Rebuild an old or slow site with the same fixed-price packages — and keep your Google rankings.
+                Rebuild an old or slow site from £395, with every service and price listed — and keep your Google rankings.
               </p>
             </div>
             <span className="font-label text-xs uppercase tracking-[0.16em] text-flare-cyan">Redesign your site →</span>

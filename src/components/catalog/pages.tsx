@@ -404,7 +404,7 @@ function ShopText() {
           "Built for Google search from day one",
         ]}
       />
-      <Meta ideal="boutiques · food & drink producers · makers · local shops going online" price="From £2,095" />
+      <Meta ideal="boutiques · food & drink producers · makers · local shops going online" price="From £1,495" />
     </Paper>
   );
 }

@@ -41,7 +41,7 @@ export default async function CatalogPage() {
       "@type": "OfferCatalog",
       name: "What BisoDesign can build",
       itemListElement: [
-        offer("Online shops", "Hand-coded e-commerce websites with secure checkout, stock and order management.", 2095),
+        offer("Online shops", "Hand-coded e-commerce websites with secure checkout, stock and order management.", 1495),
         offer("Product pages with 360° views", "Product pages with 360° spin, colour and size pickers, configurators and launch pages."),
         offer("Company websites", "Fast, hand-coded websites for UK businesses, built to earn trust and enquiries.", 495),
         offer("Platforms & client portals", "Bookings, memberships, payments, logins and live dashboards."),

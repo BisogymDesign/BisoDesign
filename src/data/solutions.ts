@@ -827,8 +827,8 @@ export const solutions: Solution[] = [
     tools: ["Uptime monitoring", "Vercel / Netlify", "Google Search Console"],
     example: "A salon sends a new price list by WhatsApp; it's live on the website the same day.",
     timeline: "Ongoing, monthly",
-    priceFrom: "£39 / month",
-    faq: [{ q: "Is there a contract?", a: "No long lock-in — monthly, cancel any time." }],
+    priceFrom: "£29 / month",
+    faq: [{ q: "Is there a contract?", a: "No long lock-in — plans are monthly; change or cancel with 30 days' notice." }],
   },
 ];
 
