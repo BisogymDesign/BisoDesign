@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { appendMessage } from "@/lib/store";
+import { appendMessage, readContent } from "@/lib/store";
+import { sendLeadNotification } from "@/lib/notify";
 
 export async function POST(request: NextRequest) {
   let body: { name?: string; email?: string; message?: string };
@@ -37,6 +38,14 @@ export async function POST(request: NextRequest) {
       // the message is still saved locally below.
       console.error("Failed to forward contact message to Google Sheets:", err);
     }
+  }
+
+  // Email notification so no enquiry waits unseen (only when RESEND_API_KEY is configured).
+  try {
+    const content = await readContent();
+    await sendLeadNotification({ name, email, message, createdAt }, content.contactEmail);
+  } catch (err) {
+    console.error("Failed to send enquiry notification email:", err);
   }
 
   // Also keep a local backup copy. On hosts with a read-only production filesystem

@@ -86,8 +86,9 @@ export default async function PrivacyPage() {
       <Section title="4. Who processes it for us">
         <p>
           We use trusted service providers to run this website and our business, who process data
-          only on our instructions: website hosting and database (Vercel), email (Google), and —
-          where used — spreadsheet storage for enquiries (Google Sheets). Some providers may store
+          only on our instructions: website hosting and database (Vercel), email (Google), enquiry
+          notification emails (Resend), and — where used — spreadsheet storage for enquiries (Google
+          Sheets). Some providers may store
           data outside the UK; where they do, they rely on approved safeguards such as the UK
           International Data Transfer Agreement or adequacy regulations.
         </p>
